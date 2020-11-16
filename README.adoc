@@ -1,4 +1,6 @@
-= CTUstyle3: Macros for student's theses at CTU in Prague, using OpTeX
+= CTUstyle3 
+
+== Macros for student's theses at CTU in Prague, using OpTeX
 
 This is version of CTUstyle (see http://petr.olsak.net/ctustyle-e.html)
 for usage in OpTeX. It is derived from CTUstyle2 (new design).
