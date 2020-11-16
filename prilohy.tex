@@ -1,0 +1,155 @@
+
+\bibchap
+
+\usebib/c (simple) mybase
+
+\label[zadani]
+\app Zadání práce
+
+Tento dokument specifikuje šablony pro \LaTeX{} a MS Word, které jsou
+doporučeny pro psaní bakalářských, diplomových nebo disertačních prací
+na ČVUT FEL. Specifikace se opírá
+o~dokumenty~\cite[CVUT-FEL:zaverecne-prace, CVUT-FEL:smernice, CSN:016910].
+
+\bigskip
+
+\noindent
+Šablony mají splňovat následující požadavky:
+\begitems
+* Písmo Latin Modern (v~\LaTeX{} instalacích je standardně
+  obsaženo, pro MS Word bude OTF verze s~podporou matematiky přiložená
+  k~šabloně). Velikost základního písma 11 bodů.
+* Implicitní kódování šablon UTF-8.
+* Formátování na papír A4, vnitřní okraj 30\,mm pro pevnou
+  vazbu, délka řádky přizpůsobena velikosti písma.
+* Implicitně se předpokládá oboustranná sazba.
+* Strukturní elementy: titulní list, poděkování, prohlášení,
+  abstrakt + klíčová slova (cz/en), obsah, seznam symbolů/zkratek,
+  přílohy, bibliografie, tabulky a obrázky s~popisky.
+* Číslování stránek od 1. strany textu (úvodu); úvodní stránky
+  číslovány římsky. Důvodem je snadno rozpoznatelný rozsah práce.
+* V~záhlaví stránky číslo a název hlavní kapitoly. V~patičce
+  u~vnějšího okraje číslo stránky.
+* Součástí šablony bude styl pro bibliografie s~číselnými odkazy;
+  v~seznamu literatury, řazení dle pořadí citování.
+* Šablona umožní následující varianty výsledného dokumentu:
+  \begitems \style x
+    * bakalářská/diplomová/disertační práce (předpokládá se stejná
+      základní struktura, jen změna podtitulků),
+    * anglický nebo český jazyk textu (vzory dělení, nadpisy,
+      číslování kapitol),
+    * pracovní verze (draft) s~textem \uv{Draft + datum} v~patičce.
+  \enditems
+\enditems
+
+\label[zkratky]
+\app Zkratky a symboly
+
+\font\mflogo=logo10 at11pt
+\def\METAFONT{{\mflogo METAFONT}}
+\def\METAPOST{{\mflogo METAPOST}}
+
+Tento text je až na výjimky převzat z~\cite[zyka].
+
+\sec Zkratky
+
+Jako příklad pro popis zkratek poslouží pojmy ze světa \TeX{}u.
+
+\medskip
+\bgroup \leftskip=5.5em
+\abbrv[\TeX{}]  Program na přípravu elektronické sazby vysoké kvality
+   vytvořený Donaldem Knuthem. Program zahrnuje interpret makrojazyka.
+   Název programu se vyslovuje \uv{tech}.
+\abbrv[\LuaTeX] Rozšířený program \TeX/ o možnost užití Unicode fontů a
+   programovacího jazyka Lua.
+\abbrv[\METAFONT{}] Program a makro jazyk pro generování fontů
+   z vektorového do bitmapového formátu vytvořený Donaldem Knuthem.
+\abbrv[\METAPOST{}] Program generující vektorovou grafiku založený na
+   \METAFONT{}u vytvořený Johnem Hobby.
+\abbrv[plain\TeX{}]  Originální \TeX{}ový formát (rošíření na úrovni 
+   makrojazyka). Je součástí každé distribuce \TeX{}u a je
+   vytvořen Donaldem Knuthem.
+\abbrv[\OpTeX] \TeX{}ový formát rozšiřující plain\TeX{} s využitím maker
+   OPmac pro Lua\TeX.
+\abbrv[\csplain{}] \TeX{}ový formát rozšiřující plain\TeX{} o možnosti sazby
+   v českém a slovenském jazyce vytvořený Petrem Olšákem.
+\abbrv[\LaTeX{}]  Nejznámější \TeX{}ový formát (rozšíření na úrovni 
+   makrojazyka) vytvořený Leslie Lamportem. 
+   Existuje obludné množství různých balíčků, které pomocí
+   makrojazyka \TeX{}u dále rozšiřují výchozí možnosti \LaTeX{}u.
+   Rozličné uživatelské požadavky jsou nejčastěji řešeny použitím vhodného balíčku.
+\abbrv[OPmac] Olšákova Plain\TeX{}ová makra nabízející uživatelům
+   plain\TeX{}u podobné možnosti, jako \LaTeX{}, ovšem přímočařeji
+   a jednodušeji.
+\abbrv[Con\TeX{}t]  Typografický systém vystavěný na Lua\TeX/u a na
+   předpřipravených makro souborech vytvořený týmem v čele s Hansem Hagenem.
+   Rozličné uživatelské požadavky jsou nastavovány pomocí přiřazení hodnot
+   klíčovým slovům společně s možností \TeX{}ového, \METAPOST{}ího a 
+   Lua programování.
+\par\egroup
+
+
+\sec Symboly
+
+\medskip
+\bgroup \leftskip=2em
+\abbrv[$\pi$] Konečná verze \TeX{}u zmíněna v Knuthově \TeX{}tamentu.
+\abbrv[e] Konečná verze \METAFONT{}u.
+\abbrv[$2\varepsilon$] Současná verze \LaTeX{}u používaná od roku 1994.
+Počítá se s ní jako s přechodnou verzí mezi původní Lamportovou 
+verzí \LaTeX{}~2.09 a cílovou verzí \LaTeX{}~3. Tento přechodný stav už trvá
+27~let.
+\par\egroup
+
+\label[seznamfilu]
+\sec Soubory, které jsou součástí {\ssr CTUstyle3}
+
+\medskip
+\bgroup \leftskip=13.5em
+\abbrv[\tt ctustyle3.tex] 
+   \TeX{}ová makra implementující šablonu ve verzi 3 (pro \OpTeX).
+\bigskip
+\abbrv[\tt ctulogo-new.pdf,]
+\abbrv[\tt ctulogo-bw-new.pdf] 
+   Logo ČVUT podle\cite[grafman2] v modré a černé variantě.
+\bigskip
+\abbrv[\tt Technika-Regular.otf] 
+   Metrika a kresby písma {\sbf Technika-Regular}.
+\abbrv[\tt Technika-Italic.otf] 
+   Metrika a kresby písma {\sbi Technika-Italic}.
+\abbrv[\tt Technika-Book.otf] 
+   Metrika a kresby písma {\ssr Technika-Book}.
+\abbrv[\tt Technika-BookItalic.otf] 
+   Metrika a kresby písma {\ssi Technika-BookItalic}.
+\abbrv[\tt Technika-Bold.otf]
+   Metrika a kresby písma {\bf Technika-Bold}.
+\abbrv[\tt Technika-BoldItalic.otf]
+   Metrika a kresby písma {\bi Technika-BoldItalic}.
+\bigskip
+\abbrv[\tt ctustyle-doc.tex] 
+   Hlavní zdrojový soubor tohoto dokumentu.
+\abbrv[\tt uvod.tex, popis.tex,] 
+\abbrv[\tt prilohy.tex]
+   Zdrojové soubory čtené z "ctustyle-doc.tex" s jednotlivými kapitolami
+   tohoto dokumentu.  
+\abbrv[\tt cmelak1.jpg] 
+   Obrázek použitý v ukázce, jak vložit obrázek.
+\abbrv[\tt mybase.bib]
+   Údaje použité pro generování seznamu literatury.
+\abbrv[\tt ctustyle-doc.pdf]
+   Tento dokument.
+\bigskip
+\abbrv[\tt ctuslides3.tex] 
+   Šablona implementující {\ssr CTUslides} pro přípravu prezentací ve stejném stylu jako \ctustyle. 
+\abbrv[\tt slides.tex, slidy.tex]  
+   Zdrojové texty ilustrující použití {\ssr CTUslides}.
+\abbrv[\tt slides.pdf, slidy.pdf]  
+   Výstupní ukázky ilustrující použití {\ssr CTUslides} včetně návodu k použití.
+\bigskip
+\abbrv[\tt ctustyle-ts.tex]
+   Šablona implementující teze disertační práce ve stylu \ctustyle.
+\abbrv[\tt example-ts.tex]
+   Ukázka zdrojového souboru pro teze disertační práce.
+\abbrv[\tt example-ts.pdf]
+   Ukázka výstupního souboru pro teze disertační práce.   
+\par\egroup

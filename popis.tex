@@ -1,0 +1,702 @@
+
+\catcode`<=13
+\def<#1>{\hbox{$\langle$\it#1\/$\rangle$}}
+\toksapp\everytt{\catcode`<=13} \toksapp\everyintt{\catcode`<=13}
+
+\chap Části dokumentu
+
+Tento dokument nemůže sloužit jako návod k~použití \TeX{}u a \OpTeX/u.
+Domnívám se ale, že metodou analogie je schopen i \TeX{}ový nováček vytvořit obvyklý
+dokument. Doporučuji mu prostudovat stručný text~\cite[prvni] a uživatelskou 
+dokumentaci \OpTeX/u~\cite[optex]. Dokumantace je v \TeX/live k dispozici po
+příkazu "texdoc optex".
+Na jednotlivé odstavce dokumentace k~\OpTeX/u budu v~této kapitole odkazovat.
+Nově je též k dispozici text o základech plain\TeX{}u~\cite[tpp].
+Pokročilejší uživatelé \TeX/u mohou použít knihy~\cite[tbn,tst,texbook].
+
+
+\sec Kapitoly, sekce, podsekce, přílohy
+
+Dokument lze členit na kapitoly, sekce, podsekce a přílohy.
+Používají se k~tomu příkazy vysvětlené v~dokumentaci k~\OpTeX/u v~sekci~1.4.1,
+Kromě těchto příkazů šablona \ctustyle{} přidává příkaz "\app".
+Takže seznam příkazů pro vymezení základní struktury dokumentu vypadá takto:
+
+\begtt
+\chap Nadpis kapitoly <ukončený koncem řádku>
+\sec Nadpis sekce <ukončený koncem řádku>
+\secc Nadpis podsekce <ukončený koncem řádku>
+\app Nadpis přílohy <ukončený koncem řádku>
+\endtt
+
+Přílohy uvozené příkazem "\app" se chovají stejně jako kapitoly, jen nejsou
+číslovány, ale jsou k~nim automaticky vzestupně přiřazena písmena A, B,
+C\dots{} Také přílohy mohou být členěny na sekce a podsekce.
+
+
+\sec Povinné části závěrečné práce
+
+\secc Rozvržení dokumentu
+
+Je doporučeno číslované kapitoly zahájit úvodem, pak další kapitoly podle
+potřeby práce a poslední kapitola by měla být označena jako závěr. 
+Následně musí být zařazen seznam literatury
+(nečíslovaná kapitola) a pak povinná příloha A se zadáním práce 
+(u~bakalářské a diplomové práce) a následně případné další přílohy. Mezi těmito
+dalšími přílohami se velmi doporučuje zařadit seznam zkratek a symbolů, jako
+zde v příloze~\ref[zkratky].
+
+
+\secc Literatura
+
+Každá studentská závěrečná práce musí obsahovat seznam použitých zdrojů. 
+Toto je jediná nečíslovaná kapitola umístěná na konci textu práce ale před
+přílohami. \ctustyle{} nabízí příkaz "\bibchap",
+který je potřeba použít místo příkazu "\chap". Příkaz vytvoří záznam pro
+obsah, vytiskne slovo Literatura (nebo References v anglicky psané práci).
+Toto slovo se generuje automaticky, příkaz zapisujte bez parametru.
+
+Způsob tvorby seznamu literatury a způsob citace na literaturu v~textu je
+podrobněji vyložen v~sekci~\ref[citlit].
+
+
+\secc Zadání práce
+
+Každá bakalářská nebo diplomová závěrečná práce musí obsahovat úplný text zadání práce. 
+Doporučuji jej zařadit do přílohy~\ref[zadani]~(jako v~tomto dokumentu)
+a označit ji názvem \uv{Zadání práce} (anglicky Specification).
+Někdy je v požadavcích uvedeno vložit zadání práce hned za titulní stranu.
+Ačkoli to z typografického pohledu nedoporučuji, \ctustyle{} to umožňuje.
+Podrobnější komentář k této problematice je v~sekci~\ref[ozadani]
+
+
+\sec Obrázky, tabulky, listingy a další
+
+\secc Obrázky
+
+Obrázky ve formátu JPG, PNG (bitmapové) nebo PDF (vektorové i bitmapové) je
+možné vložit příkazem "\inspic". Viz sekci 1.6.2 v~dokumentaci k~\OpTeX/u. Pod
+obrázek je nutné vložit popisek příkazem "\caption/f", viz sekci~1.4.2 
+v~dokumentaci k~\OpTeX/u. \ctustyle{} navíc definuje příkaz "\cinspic", který
+umístí obrázek doprostřed. Například:
+
+\begtt
+\medskip
+\picw=5cm \cinspic cmelak1.jpg
+\caption/f Ukázka vložení obrázku na střed, což je asi nejobvyklejší.
+\medskip
+\endtt
+%
+vytvoří:
+
+\medskip  \clabel[logo]{Ukázka vložení obrázku na střed}
+\picw=5cm \cinspic cmelak1.jpg
+\caption/f Ukázka vložení obrázku na střed, což je asi nejobvyklejší.
+\medskip
+
+Makro "\cinspic" vyžaduje jméno souboru s příponou ukončené mezerou podobně
+jako příkaz "\input". 
+
+Pokud se obrázek vyskytuje dole na stránce tak, že stranu přeplní, nastávají
+problémy se stránkovým zlomem. Proto je vhodné obrázky vložit i s~popiskem
+do dvojice příkazů "\midinsert" a "\endinsert". V~takovém případě obrázek
+implicitně zůstane, kde je, ale při potížích odpluje na začátek následující
+stránky:
+
+\begtt
+\midinsert
+\picw=5cm \cinspic cmelak1.jpg
+\caption/f Ukázka vložení obrázku na střed, což je asi nejobvyklejší.
+\endinsert
+\endtt
+
+Místo příkazu "\midinsert" můžete použít "\topinsert". V~takovém případě
+obrázek odpluje na horní část stránky vždy. Raději má vršek aktuální
+stránky, ale když to není možné, odpluje na stránku následující.
+
+
+\secc Tabulky
+
+Pro tabulky použijte příkaz "\ctable{<deklarace>}{<data>}", 
+který je odvozen z~příkazu "\table"
+dokumentovaného v~\OpTeX/u v~sekci~1.4.6. \ctustyle{} definuje "\ctable"
+tak, že tabulku navíc podkládá modrým pozadím (což je součástí typografického
+návrhu šablony) a centruje ji.
+Například:
+
+\begtt
+...vytvoří tabulku~\ref[absolventiFEL].
+
+\midinsert \clabel[absolventiFEL]{Počet absolventů FEL ČVUT}
+\ctable{lrrrrr}{
+ \hfil number of       & 2007 & 2008 & 2009 & 2010 & 2011 \crl \tskip4pt
+ students Bc. and Mgr. & 6313 & 5913 & 5951 & 5188 & 4737 \cr
+ graduate Bc. and Mgr. & 1195 & 1489 & 1379 & 1160 & 1260 \cr
+ students Ph.D.        &  457 &  468 &  366 &  395 &  434 \cr
+ graduate Ph.D.        &   65 &   60 &   55 &   54 &   51 \cr
+}
+\caption/t Počet absolventů FEL ČVUT. Tabulka je převzata z~\cite[zyka].
+\endinsert
+\endtt
+%
+vytvoří tabulku~\ref[absolventiFEL].
+
+\midinsert \clabel[absolventiFEL]{Počet absolventů FEL}
+  \ctable{lrrrrr}{
+    \hfil number of       & 2007 & 2008 & 2009 & 2010 & 2011 \crl \tskip4pt
+    students Bc. and Mgr. & 6313 & 5913 & 5951 & 5188 & 4737 \cr
+    graduate Bc. and Mgr. & 1195 & 1489 & 1379 & 1160 & 1260 \cr
+    students Ph.D.        &  457 &  468 &  366 &  395 &  434 \cr
+    graduate Ph.D.        &   65 &   60 &   55 &   54 &   51 \cr
+}
+\caption/t Počet absolventů FEL ČVUT. Tabulka je převzata z~\cite[zyka].
+\endinsert
+
+Doporučuji nerámovat tabulky do dalších rámečků, ale využít toho, že tabulka
+je automaticky ohraničena modrým podkladem. Je vhodné pouze vložit linku mezi
+záhlaví a údaje v~tabulce (viz příkaz "\crl" v~ukázce).
+
+Tabulky (podobně jako obrázky) je vhodné zapouzdřit do dvojice 
+příkazů "\midinset" a "\endinsert" nebo "\topinsert" a "\endinsert".
+
+
+\secc Automaticky číslované objekty
+
+Jak je možné si všimnout, \ctustyle{} automaticky čísluje kapitoly, sekce,
+podsekce, dodatky, tabulky, obrázky a pokud uživatel použije "\eqmark", 
+očísluje i rovnice. O~tomto číslování a o~odkazech na tato čísla
+v~textu pojednávají odstavce 1.4.1 a 1.4.2 v~dokumentaci k~\OpTeX/u. 
+Zde jen stručně uvádím,
+že číslované objekty je potřeba označit interním lejblíkem příkazem "\label"
+a pak je možné na ně odkazovat příkazem "\ref". Existuje ještě možnost
+odkazovat na stránku příkazem "\pgref" a na literaturu příkazem "\cite".
+
+Kapitoly se číslují od jedné v~celém dokumentu, sekce se číslují druhým
+číslem v~pořadí od jedné v~každé kapitole a podsekce se číslují
+třetím číslem od jedné v~každé sekci. Hlubší zanoření (podpodsekce) není
+podporováno a není pro studentské práce doporučeno.
+
+Tabulky se číslují od jedné v~každé kapitole a obrázky (nezávisle na
+tabulkách) taky. Rovněž rovnice se číslují od jedné v~každé kapitole.
+\ctustyle{} volí kompromis mezi krátkým číslováním (Tabulka 27) a dlouhým
+číslováním (Tabulka 2.4.6). První extrém nedává představu o kapitole, ve
+které je tabulka umístěna, a druhý extrém se čtenáři obtížně pamatuje.
+
+\ctustyle{} definuje kromě příkazu "\label" ještě příkaz
+"\clabel[<lejblík>]{<text>}", který funguje jako "\label[<lejblík>]", ale
+navíc vloží takto označenou tabulku nebo obrázek do seznamu tabulek nebo
+obrázků. Tyto seznamy se vygenerují hned za obsahem dokumentu. Pozor:
+není-li tabulka nebo obrázek označen pomocí "\clabel", v~příslušném seznamu
+se neobjeví. Někoho může napadnout otázka, proč má psát "<text>" dvakrát:
+jednou pro seznam obrázků či tabulek v~příkazu "\clabel" a jednou pod
+obrázek v~příkazu "\caption". Je to proto, že ty texty se mohou lišit.
+Typicky v~obsahu budou stručnější. Ukázka použití "\clabel" je u~výpisu kódu
+k~tabulce~\ref[absolventiFEL].
+
+\OpTeX/ umožňuje použít automaticky číslované odstavce, viz konec sekce
+1.4.2 v dokumentaci \OpTeX/u. Je připraveno pět
+nezávislých čítačů označených A, B, C, D a E, každý z nich začíná 
+v každé kapitole číslovat od jedné. Makro "\numberedpar<čítač>{<slovo>}"
+zahájí číslovaný odstavec ve tvaru "<slovo> <číslo kapitoly>.<hodnota čítače>".
+Následující příklad deklaruje věty a důsledky číslované společnou řadou
+čísel a dále nezávisle číslované definice a příklady.
+
+\begtt
+\def\veta     {\numberedpar A{Věta}} 
+\def\dusledek {\numberedpar A{Důsledek}} 
+\def\definice {\numberedpar B{Definice}} 
+\def\priklad  {\numberedpar C{Příklad}} 
+\endtt
+
+Po této deklaraci můžete psát "\definice Nechť $M$ je neprázdná ..."
+a objeví se odstavec zahájený takto:
+
+\def\definice {\numberedpar B{Definice}} 
+\definice Nechť $M$ je neprázdná \dots
+
+Další definice v této kapitole bude mít číslo 2.2, další 2.3 atd. K tomu
+mohou být přidány věty a důsledky číslované 2.1, 2.2, atd. Konečně i
+příklady v této kapitole budou číslovány 2.1, 2.2, atd. Před takto označené
+odstavce lze psát "\label[<lejblík>]" a dá se pak na ně odkazovat pomocí
+"\ref[<lejblík>]" a "\pgref[<lejblík>]", tedy odkazování je stejné jako u
+všech ostatních automaticky číslovaných objektů.
+
+\secc Listingy, výpisy kódů
+
+Pro listingy, tj. výpisy kódu, použijte dvojici příkazů "\begtt" a "\endtt",
+jak o~tom píše dokumentace k~\OpTeX/u v~sekci~1.4.7. \ctustyle{} definuje
+"\tthook" tak, aby byly listingy podbarveny světle modrou barvou, což je
+součást grafického stylu.
+
+Listingy se lámou do více stránek a jsou tištěny strojopisem, aby to
+navodilo atmosféru pohledu do textového programátorského editoru, který
+rovněž používá písmo s~pevnou šířkou všech znaků. Pravda, atmosféru to
+nevytvoří dokonalou, protože textové editory dnes navíc používají prostředky pro
+zvýraznění některých slov (klíčových slov programovacího jazyka atd.).
+Chcete-li tedy navodit dokonalou atmosféru, uložte
+si zobrazení svého textového editoru jako obrázek a do dokumentu vložte
+obrázek. Nebo můžete experimentovat s příkazem "\hisyntax" dokumentovaném v
+\OpTeX/u na konci sekce~1.4.7.
+Ovšem strohé listingy jen pomocí "\begtt" a "\endtt" jsou velmi doporučené,
+protože modrý podklad graficky ladí s~celkovým návrhem \ctustyle{}
+a výsledná sazba působí dostatečně střídmě.
+
+Pokud chcete přímo v~odstavci uvádět kusy kódů, obalte je do dvojice 
+znaků {\tt\dprime...\dprime}. Je možné tedy psát třeba toto:
+
+\begtt
+Chcete-li zdůraznit slovo, použijte {\em kurzívu}, do které
+přepnete příkazem "\em", tedy "{\em zvýrazněné slovo}". 
+\endtt
+
+Tyto kusy kódu budou uvnitř odstavce tištěny strojopisem a nebudou podléhat
+řádkovému zlomu. Bohužel dvojice znaků {\tt\dprime...\dprime} je možné použít jen
+uvnitř \uv{obyčejného} odstavce, nikdy nefungují uvnitř parametrů jiných
+příkazů (obsahy tabulek, atd.). V~takových místech musíte
+do strojopisu přepnout explicitně pomocí "{\tt text}" a pohlídat si sazbu
+\TeX{}ovsky citlivých znaků. 
+Místo backslashe je možné psát "\bslash" a místo
+procenta "\pcent".
+
+
+\secc Poznámky pod čarou
+
+Pro poznámky pod čarou používejte "\fnote{<text>}" jak je popsáno 
+v~sekci~1.2.3 dokumentace k~\OpTeX/u. Vytvoří to poznámku\fnote{Jako je tato.}. 
+Poznámky pod čarou jsou číslovány v každé kapitole od jedné. Doporučuji 
+s~takovými poznámkami šetřit.
+
+Poznámky na okraji "\mnote", o~kterých také
+hovoří dokumentace k~\OpTeX/u, nejsou při použití \ctustyle{} doporučeny.
+
+
+\secc Zvýrazňování textů
+
+Základní text je psán antikvou (písmem Latin Modern odvozeným z~Computer
+Modern). Chcete-li zdůraznit slovo, použijte {\em kurzívu}, do které
+přepnete příkazem "\em", tedy "{\em zvýrazněné slovo}". 
+Je to obvyklý způsob zdůrazňování, který je typograficky vhodný, protože
+netrčí z~textu, ale je viditelný při čtení.
+
+Pokud chcete zdůraznit něco, aby to bylo {\bf vidět z~dálky}, použijte
+přepínač "\bf", který při použití \ctustyle{} přepíná do tučného fontu bez
+serifů (tj. bez patek). Tedy "{\bf takto}". V~tomto fontu jsou řešeny i
+nadpisy. V této verzi \ctustyle{} je přepínačem "\bf" zahájen font
+Technika-Bold, který se může někomu jevit jako příliš tučný. 
+V~takovém případě můžete použít přepínač "\sbf" (\uv{semibold font}), 
+což vypadá {\sbf takto}. Podrobněji o tom je
+pojednáno v kapitole~\ref[typo].
+
+Vyznačování podtrháním textu nebo prostrkáním nedoporučuji.
+
+
+\label[uvozovky]
+\secc Uvozovky, pomlčky, nezlomitelné mezery
+
+{\sbf České uvozovky} vypadají \uv{takto}, {\sbf anglické} ``takto''. V~závislosti na
+jazyce použijte správné uvozovky. Můžete je napsat přímo v~textovém editoru
+(v~UTF-8 kódování), nebo \TeX{}ovsky to uděláte "\uv{takto}" pro češtinu a
+"``takto''" pro angličtinu.
+
+{\sbf Pomlčky} v~typografii jsou dvě. 
+\begitems
+* Střední pomlčka: -- 
+(používá se bez mezer kolem ve významu \uv{až} nebo s~mezerami 
+jako pomlka ve větě). 
+* Dlouhá pomlčka: --- 
+(používá se v~anglickém textu). 
+\enditems
+
+Můžete tyto znaky napsat přímo v~editoru
+v~UTF-8 kódování nebo \TeX{}ovsky: "--" (střední pomlčka), "---" (dlouhá
+pomlčka). Čtenář vašeho textu vám strhne nemilosrdně body, pokud ve významu
+pomlčky použijete spojovník. Vypadá takto: \uv{-} a promění se na něj
+singl znak \clqq"-"\crqq{} ve zdrojovém textu.
+
+{\sbf Nezlomitelná mezera} je mezislovní mezera, ve které nedojde k~zalomení
+do řádků. V~\TeX{}ových zdrojových textech se typicky tato mezera značí
+vlnkou \clqq"~"\crqq. Existuje program 
+"vlna"\urlnote{ftp://math.feld.cvut.cz/olsak/vlna/}, 
+který dokáže
+zaměnit normální mezery za tyto vlnky ve zdrojovém textu za všemi výskyty
+neslabičných předložek, kam skutečně patří v~češtině i slovenštině
+nezlomitelná mezera. O~to se tedy uživatel při psaní textu nemusí starat,
+jen při závěrečných korekturách použije program "vlna" na všechny vstupní
+soubory se zdrojovým textem a spustí \TeX{} znovu. Program "vlna" ovšem nedává
+vlnky před čísla citací a referencí a na mnoho míst, kam podle zvyklostí
+v~sazbě taky patří. To si musí uživatel pohlídat sám.
+
+
+\secc Odkazy do internetu.
+
+Do internetu by se nemělo odkazovat přímo v textu, ale 
+pomocí poznámky pod čarou "\fnote".
+Aby se stalo URL klikatelné a bylo vytištěno správně strojopisem, je nutno
+je vložit do parametru příkazu "\url", tedy třeba
+"\url{http://petr.olsak.net}" vytvoří \url{http://petr.olsak.net}.
+Ovšem navíc je potřeba tento text poslat do poznámky pod čarou. \ctustyle{}
+definuje zkratku "\urlnote{<URL text>}", která je totožná 
+s~"\fnote{\url{<URL text>}}". Takže text z předchozího odstavce byl napsán
+takto:
+
+\begtt
+Existuje program "vlna"\urlnote{ftp://math.feld.cvut.cz/olsak/vlna/},
+který dokáže...
+\endtt
+
+\secc Seznamy
+
+Tvorba seznamů s~odrážkami je popsaná v~sekci 1.4.5 v~dokumentaci
+k~\OpTeX/u. (příkazy "\begitems" a "\enditems"). Implicitní odrážku v~seznamu 
+definuje \ctustyle{}
+jako modrý čtvereček. Podívejte se, jak to vypadá, do 
+sekce~\ref[uvozovky] do místa, kde se mluví o~pomlčkách.
+Pokud chcete použít seznam v~seznamu,
+pro vnitřní seznam použijte "\style x", což vytvoří poněkud menší modré
+čtverečky. Pro číslované seznamy použijte "\style n".
+
+
+\secc Slovníček zkratek
+
+Je možné si například do souboru "glosdata.tex" připravit následující obsah
+
+\begtt
+\glos {ČVUT}   {České vysoké učení technické v Praze}                          
+\glos {FEL}    {Fakulta elektrotechnická ČVUT}
+\glos {FIT}    {Fakulta informačních technologií ČVUT}
+\glos {UK}     {Univerzita Karlova}
+\glos {MFF}    {Matematicko-fyzikální fakulta UK}
+\endtt
+%
+a zařadit jej do dokumentu na jeho začátek (nejlépe před "\makefront")
+pomocí "\input glosdata". Tím se ještě nic nestane. Nyní ale můžete někam do
+dokumentu napsat třeba
+
+\begtt
+\app Slovníček 
+\makeglos
+\endtt
+%
+a v uvedeném místě se objeví slovníček sestavený z "glosdata.tex" a
+uspořádaný podle abecedy, třebaže glosdata uspořádána dle abecedy nejsou.
+Chcete-li vypnout abecední řazení, pište na začátek dokumentu 
+"\let\dosorting=\relax".
+
+Objeví-li se zkratka ze slovníčku někde v dokumentu, můžete ji označit pomocí
+příkazu "\glref", například "\glref{ČVUT}", a v tomto místě se vytvoří
+hypertextový odkaz do slovníčku.
+
+Je též možné místo "\glref" použít jiné makro "\glosref{<zkratka>}{<význam>}". 
+To využijete tehdy, pokud {\em nechcete} mít
+souhrnný soubor "glosdata.tex", ale chcete významy jednotlivých zkratek
+zapsat až v místě jejich výskytu. To má ale jistá omezení. 
+Zatímco zkratka označená "\glref" se v dokumentu může
+vyskytovat vícekrát, její význam musí být deklarován pomocí "\glosref" právě jednou
+a deklarace významu všech zkratek musejí předcházet místu, kde je slovníček vytištěn
+pomocí "\makeglos".
+
+Chcete-li slovníček sestávající z více podsekcí, je nutné jej sestavit
+manuálně, jako například v příloze~\ref[zkratky] tohoto dokumentu.
+
+\secc Rejstřík
+
+Rejstřík se u~studentských závěrečných prací nevyžaduje. Nic ale nebrání jej
+vytvořit a postupovat přitom podle odstavce~1.5.2 v~dokumentaci k~\OpTeX/u.
+
+
+\label[citlit]
+\sec Citace na literaturu
+
+Odkazy v textu vytváříme příkazem "\cite[<lejblík>]". Lejblíků může být v
+hranaté závorce více a jsou odděleny čárkou.
+Podrobněji je tato problematika popsána v~dokumentaci k \OpTeX/u
+v~sekci~1.5.3.
+
+Seznam použité literatury má být řazen podle pořadí odkazů na citace v~textu.
+Toto je součástí zadání, viz přílohu~\ref[zadani]. Osobně se mi to jeví jako nerozumné
+rozhodnutí, ale zadání je třeba ctít. 
+
+Jednoltivé položky do seznamu iteratury je možné psát manuálně pomocí
+příkazů "\bib". To ale asi není nejlepší nápad.
+Pohodlnější možností k vytvoření seznamu literatury 
+je přímé čtení databázového souboru ".bib" makry \TeX{}u. 
+Stačí si připravit ".bib"
+soubor s odpovídajícími údaji (například "mybase.bib")
+a do místa, kam má být vložen seznam literatury, napsat
+
+\begtt
+\bibchap
+\usebib/c (simple) mybase
+\endtt
+
+Můžete vyjít z existujícího souboru "mybase.bib" a přidat si tam další položky. Je
+tedy možné postupovat metodou analogie. Místo stylu "simple" je možné použít
+též styl "iso690".
+
+V seznamu literatury se objeví ze čteného ".bib" souboru jen ty záznamy, 
+které jsou v dokumentu
+citovány pomocí "\cite". Chcete-li tam přidat další záznamy, je třeba je
+\uv{virtuálně citovat} pomocí "\nocite".
+
+K vytvoření ".bib" souboru je vhodné použít například nějaké webové
+rozhraní\urlnote{http://www.citace.com}. Doporučuji připravit ".bib" soubor
+v kódování UTF-8 a {\em velkým obloukem} se v něm vyhnout
+ancientním \TeX{}ovým sekvencím typu "Ol\v{s}\'ak".
+
+
+\label[ozadani]
+\sec Jak vložit zadání práce
+
+Předpisy někdy požadují vložit přílohu A \uv{Zadání práce} (v případě
+bakalářky a diplomky) do jednoho svázaného výtisku jako originál (s podpisy
+a razítkem) a do dalších výtisků resp. do PDF vložit kopii tohoto formuláře.
+Doporučuji tedy tento formulář oskenovat (navíc se typicky vyžaduje zakrýt
+podpisy) a oříznout naskenovanému obrázku bílé okraje co nejvíce to jde. To
+lze udělat například v programu Gimp. Tím vznikne obrázek například
+"zadani.jpg". Přílohy pak zahajte takovým kódem:
+
+\begtt
+\app Zadání práce
+
+\picw=\hsize % obrázek na šířku sazby
+\cinspic zadani.jpg
+\nextoddpage
+
+\app Další příloha
+\endtt
+
+Makro \ctustyle{} zahajuje vždy první přílohu (tj. přílohu A) na liché
+(pravé) straně. Za konec poslední kapitoly může tedy kvůli tomu vložit
+prázdnou stranu (neboli vakát). Na první straně přílohy se tedy objeví
+nadpis: \uv{Příloha A / Zadání práce} graficky upravený podle \ctustyle{}.
+Pod ním bude oskenovaný formulář se zadáním práce.
+Pak příkazem "\nextoddpage" dáváte najevo, že další příloha bude začínat
+znovu na pravé stránce, takže vlevo se vloží vakát. Tím pádem bude příloha~A
+zaujímat při duplexním tisku kompletní jeden list papíru v~závěrečné práci.
+
+Nyní stačí tento list papíru v jednom výtisku zaměnit za originální formulář a nechat
+svázat. Originál tedy nebude mít nadpis přílohy~A v jednotném grafickém stylu, ale
+nemůžeme chtít všechno. Kopie už budou mít jednotný grafický styl.
+
+Pokud předpisy bezpodmínečně požadují vložit zadání práce jako druhý list
+hned za titulní stranu, je možné využít deklarační příkaz "\specification",
+který zařadíte mezi ostatní deklarační příkazy a napíšete tam:
+
+\begtt
+\specification {\picw=\hsize \cinspic zadani.jpg }
+\endtt
+
+Tato deklarace způsobí, že sken zadání (bez dalších textů) se umístí na
+stranu třetí (strana druhá je typicky vakát za titulem, pokud není
+deklarován "\pagetwo"). Strana čtvrtá se stane dalším vakátem a od strany páté
+se zobrazí poděkování/prohlášení atd. Navíc na stranu třetí bude odkazovat
+strukturovaný obsah PDF prohlížeče názvem Zadání, resp. Specification.
+
+Máte-li dvě varianty zadání (např. ve dvou jazycích), je možné psát:
+
+\begtt
+\specification {\picw=\hsize \cinspic specifi-en.jpg 
+                \vfil\break  \cinspic specifi-cz.jpg }
+\endtt
+
+V tomto příkladě se "specifi-en.jpg" zobrazí na straně třetí a "specifi-cz.jpg" na
+straně čtvrté. A stejně jako prve od strany páté pokračuje 
+poděkování/prohlášení atd.
+
+Na některých fakultách předpisy vyžadují vložit zadání práce úplně jako
+první list práce, ještě před titulní stranu. Ponechme stranou, že to
+z typografického pohledu výrazně znehodnotí úvodní listy práce, a ukažme si,
+co lze při takovém požadavku dělat. Těsně před "\makefront" vložte:
+
+\begtt
+\bgroup
+   \nopagenumbers \pageno=-100 % dvě strany tohoto listu nečíslovat
+   \picw=\hsize      % šířka zadání (případně opravte)
+   \vglue-1mm        % výškové umístění zadání (případně upravte)
+   \cinspic zadani.pdf
+   \vfil\break
+   \null\vfil\break  % vakát
+\egroup
+\endtt
+
+
+\sec Pracovní verze dokumentu
+
+Příkazem "\draft" vloženým před příkaz "\makefront" vznikne verze dokumentu
+označená datem vzniku a slovem Draft na každé stránce. Je to tedy pracovní
+(nefinální) verze.
+
+V~pracovní verzi jsou dále červeně vypsány lejblíky, které jste do dokumentu
+vložili pomocí "\label" nebo "\clabel". Jsou umístěny v~místě cíle odkazů.
+Při přechodu do finální verze (odstraněním příkazu "\draft") samozřejmě
+lejblíky zmizí.
+
+Při tvorbě dokumentu lze využít příkazy "\rfc{<poznámka>}", 
+které v sazbě neudělají nic. Je-li ale zapnutý
+"\draft", pak se souhrnný seznam těchto "<poznámek>" vypíše na úplně poslední stranu
+dokumentu a je zpětně prolinkován s místy, kde byly jednotlivé příkazy "\rfc"
+použity. RFC je zkratka za request for correction. Inspirace:
+
+\begtt
+\rfc{Tady musím doplnit obrázek}
+...
+\rfc{Ověřit, zda hodnoty v tabulce jsou OK}
+\endtt
+ 
+Jakmile je aktivován "\draft", můžete příkazem "\linespacing=<násobek>"
+určit řádkování větší než implicitní řádkování 1. Například
+"\linespacing=1.7". Tím se mezi řádky ve výstupním PDF dokumentu 
+objeví mezery, do kterých může korektor v~pracovní verzi dokumentu 
+vpisovat své poznámky. Při každé změně "\linespacing" je třeba \TeX{}ovat
+aspoň dvakrát, aby se srovnalo stránkování v obsahu.
+
+Upozorňuji, že řádkování rozdílné od implicitního řádkování 1, je pouze pro
+účely pracovních verzí. Finální verze dokumentu {\em musí} mít řádkování 1. 
+Ignorování této zásady bude považováno za nedodržení oficiálního
+stylu pro závěrečné práce na ČVUT. Proto taky \ctustyle{} při odstranění příkazu
+"\draft" automaticky deaktivuje nastavení "\linespacing".
+
+Velké mezerování mezi řádky bylo dříve
+doporučováno pro psaní studentských závěrečných prací, ale všichni lidé, kteří
+něco vědí o~typografii, se snaží toto desítky let staré nařízení (vyplývající
+z~technologie mechanických psacích strojů a z~normy, podle které autor
+odevzdával své rukopisy pořízené na takovém psacím stroji tiskárně) jednoznačně vypudit
+jako něco, co nemá při dnešních možnostech pořizování dokumentů žádné
+opodstatnění. Typografie je nástroj, kterým předáváme své myšlenky dalším
+čtenářům a ten nástroj nesmí čtenáře rušit a unavovat ve čtení.
+%
+Zmíněná starodávná norma měla za úkol usnadnit tiskárenskému závodu
+spočítat počet znaků knihy, které autor dodal v~rukopise, a na základě toho
+určit cenu prací. Pokud je potřeba zjistit počet znaků v~současném dokumentu, 
+můžete to udělat jednodušeji, například příkazem:
+
+\begtt
+pdftotext dokument.pdf - | wc -m
+\endtt
+
+Tento příkaz spočítá i znaky v~automaticky generovaném obsahu. Pokud toto
+není žádoucí, je možné přepínačem "-f" programu "pdftotext" specifikovat, od
+které stránky PDF dokumentu má začít číst. Je třeba tam uvést absolutní číslo
+strany PDF dokumentu, nikoli čísla podle stránkových číslic.
+
+Příkaz "\savetoner" umožní vypnout (provizorně při "\draft") modré podklady
+pod listingy a tabulkami. Ve finálním dokumentu (po vypnutí "\draft") 
+jsou podklady vždy podbarveny.
+
+Příkaz "\blackwhite" přepne modrou barvu na šedou. Chcete-li tisknout
+nakonec černobíle, je možná lepší použít tuto variantu dokumentu. Pro
+finálně vygenerované PDF (které není určeno k tisku) ovšem doporučuji 
+vrátit se k barvě.
+
+Implicitně se předpokládá tisk na duplexové tiskárně.
+Příkaz "\onesideprinting" přepne záhlaví do formy vhodné pro jednostranný
+tisk. 
+
+
+\sec Teze práce
+
+V případě disertační práce se vyžaduje vytvořit teze práce, tedy extrakt
+práce ve formátu A5, který mívá pro titulní a informativní stránku
+předepsaný formát a je omezen na cca 20 stran textu.
+Do balíčku \ctustyle{} je zahrnut makrosoubor "ctustyle-ts.tex" a výchozí
+příklad "example-ts.tex", pomocí kterého snadno vytvoříte teze vaší práce.
+Soubor "example-ts.tex" si překopírujte do svého souboru a vyměňte
+připravené údaje za údaje dle vaší práce. V tomto souboru je uvedeno, které
+údaje jsou povinné, které nepovinné a pomocí kterých je možné přepsat
+implicitní texty.
+
+Implicitní texty jsou šity na teze {\em disertační} práce (a jsou připraveny
+v~češtině a angličtině). Ovšem jejich předefinováním si můžete vytvořit teze
+jakékoli práce.
+
+Při psaní tezí práce je využit \ctustyle{}, takže vše funguje stejně, jak je
+popsáno zde. Rozdíl je jen v tom, že není vhodné text členit na kapitoly (jen
+na sekce a podsekce) a pro automatické generování obsahu je potřeba přímo použít
+příkaz "\maketoc". Vše je uvedeno v~ukázce. 
+
+Výsledný PDF soubor s tezí práce můžete zpracovat příkazem "pdfbook soubor.pdf"
+a výsledek ve tvaru "soubor-book.pdf" vytisknout na duplexové tiskárně.
+Dostanete svazeček listů A4, který se přehnutím v půli promění v knížtičku
+se stránkami A5. Příkaz "pdfbook" je z balíčku "pdfjam", který se opírá o
+"pdflatex". Je také možné \LaTeX{} obejít a udělat to přímo v plain\TeX{}u,
+jak je popsáno v~\cite[tpp] v sekci~11.8.
+
+\label[typo]
+\chap Poznámky k~typografii
+
+Šablona \ctustyle{} řeší následující věci, které jsou na sobě víceméně 
+nezávislé:
+
+\begitems
+* Strukturu dokumentu a vymezení jeho povinných částí.
+* Způsob, jak vyznačovat jednotlivé části ve zdrojovém textu dokumentu.
+* Vzhled výstupu, neboli typografii. To je obsahem této sekce.
+\enditems
+
+Vyšel jsem ze zadání v~dodatku~\ref[zadani]. Dále jsem čerpal  
+z~{\em Grafických manuálů identity ČVUT}~(původně platný \cite[grafman] a
+nově platný~\cite[grafman2]),
+které určují nebo určovaly, jak mají vypadat tiskoviny naší univerzity.
+V~manuálu je doporučeno střídat kromě černé barvu 
+\hbox{\locc\Blue Pantone 300~C (blankytně modrou)} jako výrazný znak tiskovin ČVUT.
+Tomuto doporučení jsem vyhověl. Mým cílem bylo oživit typografii závěrečných
+prací tak, aby se to s~radostí četlo i psalo. Je v~tom skryto trochu
+hravosti a rozpustilosti, ale domnívám se, že jen v~takové míře, v~jaké není
+narušen slavnostní ráz a důležitost studentské závěrečné práce.
+Navržená šablona může být použita na všech fakultách ČVUT.
+
+Domnívám se, že modrá barva
+na monitoru působí dobře a při tisku na černobílé tiskárně se holt
+promění v~šedou, ale to je pro prezentaci práce v~tištěné podobě dostačující.
+Barevný tisk je navíc pro studenty stále dostupnější.
+
+Předpokládám, že se uživatel nebude v~barvách omezovat, když bude vkládat do
+dokumentu schémata a obrázky, ovšem jistou střídmost by měl dodržet.
+
+Oranžová barva (doplňková k~modré) je jen 
+\urllink[url:http://petr.olsak.net]{navigační}. Naznačuje čtenáři, že
+je vyznačená oblast textu klikací. Tyto oranžové rámečky zcela zmizí při
+tisku, protože vytištěný text už pochopitelně klikací není.
+
+Předpokládám, že dokument bude tištěn na duplexové tiskárně, po svázání
+listů budou liché stránky vpravo a sudé stránky vlevo. V~souvislosti s~tím
+jsou nastaveny vnitřní okraje větší, protože předpokládám, že tyto okraje se
+\uv{utopí} ve vazbě závěrečné práce. Konečně plovoucí záhlaví je navrženo
+tak, že svými světle modrými tečkami z~vazby jakoby vychází na obě strany
+k~vnějšímu okraji.
+
+Nevyhověl jsem důsledně doporučení manuálů~\cite[grafman] ani
+\cite[grafman2] v~případě fontů, protože toto doporučení bylo v~rozporu
+s~požadavkem z~dodatku~\ref[zadani]. Tam se požaduje písmo Latin Modern,
+zatímco v~Grafickém manuálu se požadovalo dříve písmo Times a nově písmo
+Technika. Nicméně tato verze 3 šablony obsahuje použití písma TechnikaBold 
+v~nadpisech, kde působí obstojně. Takže jsem manuálu \cite[grafman2] vyhověl
+částečně. Šablona kombinuje Latin Modern jako základní text a Techniku pro
+nadpisy a tučné zvýraznění. Je to poněkud odvážná kombinace, jejíž záměrem
+bylo zdůraznění extrémního kontrastu: jemné písmo Latin Modern s vlasovými
+tahy kombinované s bold variantou Techniky, což dává docela zajímavý
+výsledek.
+
+Plné použití {\bf písma Technika} ve všech řezech včetně chlebového písma nebylo
+možné, protože Regular varianta písma je pro rozsáhlejší texty nepoužitelná
+zejména kvůli nevhodnému duktu. Také platí, že obecně bezserifové písmo není
+pro použití v rozsáhlých textech, kde se navíc dají očekávat i matematické
+vzorce, vhodné.
+
+Písmo Technika je součástí verze 2 a verze 3 balíčku \ctustyle{}, i když licence písma
+není úplně jasná, třebaže jsem se na senátu ČVUT snažil ostatní opakovaně
+přesvědčit, že jediná správná licence písma k použití ve studentských
+závěrečných pracích je svobodná licence. Takže jsem se kopií písma do této
+šablony možná dopustil nějakého prohřešku. Uvidíme. Ve variantě {\sbf
+Regular} je toto písmo použito v šabloně ve významu \uv{semibold}, dále je
+použito ve variantě {\bf Bold}. Konečně je toto písmo použito ve variantě
+{\ssr Book} jako \uv{sans serif}. Ve všech těchto variantách je písmo
+zmenšeno na 92~\%, aby se střední výška písma jakž takž shodovala se střední
+výškou Latin Modern.
+
+Další změnou ve verzi 2 a 3 této šablony je nové logo ČVUT podle
+\cite[grafman2]. Bohužel, lev se nám tím postupně stává ledním medvědem
+navíc uvězněným v modré čtvercové kleci. I~proti těmto zvláštnostem
+v návrhu loga jsem měl v senátu ČVUT důrazné připomínky%
+\urlnote{http://petr.olsak.net/logo-cvut.html},
+ale ani to nebylo nic platné.

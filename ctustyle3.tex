@@ -1,0 +1,788 @@
+% ctustyle3.tex -- the template for typesetting theses at CTU in Prague
+% ---------------------------------------------------------------------
+% Petr Olsak  Aug. 2020,  (derived from ctustyle.tex, Jan. 2015) 
+
+\useOpTeX % Use OpTeX format
+
+\_def\ctustyleversion{Aug.2020}
+
+\_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
+          <\ctustyleversion>}
+
+\_namespace{ctustyle}
+
+%%% Declaration commands:
+
+\_newtoks\faculty
+\_newtoks\department
+\_newtoks\title
+\_newtoks\subtitle
+\_newtoks\author
+\_newtoks\supervisor   \_let\supervisors=\supervisor
+\_newtoks\date
+\_newtoks\studyinfo
+\_newtoks\authorinfo
+\_newtoks\workinfo
+\_newtoks\workname
+\_newtoks\pagetwo
+\_newtoks\titleEN     \_newtoks\titleCZ     \_newtoks\titleSK
+\_newtoks\subtitleEN  \_newtoks\subtitleCZ  \_newtoks\subtitleSK
+\_newtoks\abstractEN  \_newtoks\abstractCZ  \_newtoks\abstractSK
+\_newtoks\keywordsEN  \_newtoks\keywordsCZ  \_newtoks\keywordsSK
+\_newtoks\thanks
+\_newtoks\declaration
+\_newtoks\specification
+
+%%% Mandatory declaration commands
+
+\_def\.ERR#1{\_message{ERROR -- #1.}\_ea\_end}
+\_def\.mandatorydecl#1{\if&\the#1&%
+   \.ERR {the mandatory item \string#1 is undeclared or empty}%
+   \fi
+}
+\_def\makefront{%
+   \_ifx\.mainlanguage\_undefined
+      \.ERR {The \_string\worktype[<type>/<lang>] command 
+                    is missing before \_string\makefront}\_fi
+   \_everypar={}
+   \.mandatorydecl\faculty
+   \.mandatorydecl\title
+   \.mandatorydecl\author
+   \.mandatorydecl\date
+   \_ifnum\.worktypenum>0
+      \.mandatorydecl\abstractEN
+      \_def\.tmp{EN}\ifx\.mainlanguage\.tmp
+         \_if&\_the\abstractSK&\.mandatorydecl\abstractCZ \_fi
+      \_fi
+      \_def\.tmp{CZ}\_ifx\.mainlanguage\.tmp \.mandatorydecl\abstractCZ \abstractSK={}\_fi
+      \_def\.tmp{SK}\_ifx\.mainlanguage\.tmp \.mandatorydecl\abstractSK \abstractCZ={}\_fi
+      \.mandatorydecl\declaration
+   \_else \.mandatorydecl\workname
+   \_fi
+   \_edef\.tmpa{:F1:F2:F3:F4:F5:F6:F7:F8:MUVS:}
+   \_edef\.tmpb{\_noexpand\_isinlist\_noexpand\.tmpa{:\_the\faculty:}}\.tmpb
+   \_iftrue \_else
+      \.ERR {The \_noexpand\faculty {\_the\faculty} 
+                    is not in the list F1, F2, ..., F8, MUVS}%
+   \_fi
+}
+
+\_everypar={\.normaltypingdenied}
+
+\_def\.normaltypingdenied{%
+   \.ERR{Text outside parameters on line \_the\_inputlineno.
+                Use \_noexpand\makefront first}\_relax}
+
+
+%%% Automatically generated multilingual texts:
+
+\_def\.mtdef#1#2#3#4{\_sdef{_mt:#1:en}{#2} \_sdef{_mt:#1:cs}{#3}
+  \_if$#4$\_slet{_mt:#1:sk}{_mt:#1:cs}
+  \_else  \_sdef{_mt:#1:sk}{#4}
+  \_fi
+}
+
+\.mtdef {ctu}   {CZECH TECHNICAL\nl UNIVERSITY\nl IN PRAGUE} 
+                {ČESKÉ VYSOKÉ\nl UČENÍ TECHNICKÉ\nl V PRAZE} {} 
+% The name of University/Faculty is in Czech even if the document is in Slovak
+\.mtdef {F1}    {Faculty of Civil Engineering}
+                {Fakulta stavební} {}
+\.mtdef {F2}    {Faculty of Mechanical Engineering}
+                {Fakulta strojní} {}
+\.mtdef {F3}    {Faculty of Electrical Engineering}
+                {Fakulta elektrotechnická} {}
+\.mtdef {F4}    {Faculty of Nuclear Sciences and Physical Engineering}
+                {Fakulta jaderná a fyzikálně inženýrská} {}
+\.mtdef {F5}    {Faculty of Architecture}
+                {Fakulta architektury} {}
+\.mtdef {F6}    {Faculty of Transportation Sciences}
+                {Fakulta dopravní} {}
+\.mtdef {F7}    {Faculty of Biomedical Engineering}
+                {Fakulta biomedicínského inženýrství} {}
+\.mtdef {F8}    {Faculty of Information Technology}
+                {Fakulta informačních technologií} {}
+\.mtdef {MUVS}  {Masaryk Institute of Advanced Studies}
+                {Masarykův ústav vyšších studií} {}
+
+\.mtdef {abstract}     {Abstract}          {Abstrakt}       {}
+\.mtdef {thanks}       {Acknowledgement}   {Poděkování}     {Poďakovanie} 
+\.mtdef {declaration}  {Declaration}       {Prohlášení}     {Prehlásenie} 
+\.mtdef {keywords}     {Keywords}          {Klíčová slova}  {Kľúčové slová}
+\.mtdef {trans}        {Title translation} {Překlad titulu} {Preklad titulu}
+\.mtdef {title}        {TITLE}             {TITUL}          {}
+\.mtdef {contents}     {Contents}          {Obsah}          {}
+\.mtdef {tables}       {Tables}            {Tabulky}        {Tabuľky}
+\.mtdef {figures}      {Figures}           {Obrázky}        {}
+\.mtdef {supervisor}   {Supervisor}        {Vedoucí práce}  {Vedúci práce}
+\.mtdef {supervisorD}  {Supervisor}        {Školitel}       {Školiteľ}
+\.mtdef {bibliography} {References}        {Literatura}     {Literatúra}
+\.mtdef {appendix}     {Appendix}          {Příloha}        {Príloha}     
+\.mtdef {specifi}      {Specification}     {Zadání}         {Zadanie}
+
+\.mtdef {B} {Bachelor's Thesis} {Bakalářská práce}  {Bakalárska práca}
+\.mtdef {M} {Master's Thesis}   {Diplomová práce}   {Diplomová práca}
+\.mtdef {D} {Ph.D. Thesis}      {Disertační práce}  {Dizertačná práca}
+
+
+%%% Worktype
+
+\_def\worktype[#1/#2]{%
+   \_isdefined{wt:#1}\_iftrue \_csname wt:#1\_endcsname \_relax
+      \_else \.ERR {Unknown \_noexpand\worktype parameter}\_fi
+   \_isdefined{wl:#2}\_iftrue \_csname wl:#2\_endcsname \_relax
+      \_else \.ERR {Unknown \_noexpand\worktype parameter}\_fi
+}
+\_sdef{wt:O}{\_chardef\.worktypenum=0}
+\_sdef{wt:B}{\_chardef\.worktypenum=1}
+\_sdef{wt:M}{\_chardef\.worktypenum=2}
+\_sdef{wt:D}{\_chardef\.worktypenum=3}
+
+\_sdef{wl:EN}{\_def\.mainlanguage{EN}\_enlang}
+\_sdef{wl:CZ}{\_def\.mainlanguage{CZ}\_cslang}
+\_sdef{wl:SK}{\_def\.mainlanguage{SK}\_sklang}
+
+%%% Typesetting area
+
+\_margins/2 a4 (32,32,30,30)mm
+\_typosize[11/13.6]
+
+\_parindent=4.1mm \_iindent=\_parindent
+
+\_headlinedist=27pt
+\_footlinedist=30pt
+
+\_emergencystretch=2em
+
+
+%%% Fonts
+
+\_fontfam[Technika]
+\_fontfam[LMfonts]
+
+\_famvardef \bf {\.Technikascaled\_bf}
+                \_addto\bf {\_inmath{\_bsansvariables \_sansgreek \_bsansdigits}}
+\_famvardef \bi {\.Technikascaled\_bi} 
+                \_addto\bi {\_inmath{\_bisansvariables \_isansgreek \_bsansdigits}}
+\_famvardef \ssr {\.Technikascaled\.book\_rm}
+\_famvardef \ssi {\.Technikascaled\.book\_it}
+\_famvardef \sc  {\.caps\_rm}
+\_famvardef \sbf {\.Technikascaled\_rm}
+\_famvardef \sbi {\.Technikascaled\_it}
+
+\_def\.Technikascaled{\.Technika \_setfontsize{mag.92}\_let\.Technikascaled=\.Technika}
+
+\_nsprivate \book \caps \sc \Technika \bf \bi \ssr \ssi ;
+
+\_fontdef \sevenss {\_setfontsize{mag.65}\.Technika\.book\_rm}
+
+\_nsprivate \sevenss ;
+
+\_let\serifbf = \_bf  \_let\serifbi = \_bi
+\_def\textit#1{{\_em#1}} \_def\textsc#1{{\.sc#1}}
+
+\_protected\_def \.boldify {%
+   \_let\it =\.bi \_let\rm =\.bf \_let\_rm=\_bf \_let\_it=\_bi
+   \_let\_normalmath=\_boldmath
+   \.bf 
+   \_let \.Technikascaled =\.Technika
+}
+
+\_def\.chapfont{\_scalemain\_typoscale[\_magstep3/\_magstep3]\.boldify}
+\_def\.secfont{\_scalemain\_typoscale[\_magstep2/\_magstep2]\.boldify}
+\_def\.seccfont{\_scalemain\_typoscale[\_magstep1/\_magstep1]\.boldify}
+
+
+
+%%% Colors
+
+\_def\Blue{\_setcmykcolor{1 .43 0 0}}
+\_def\liBlue{\_setcmykcolor{.2 .08 0 0}}
+\_def\liGrey{\_setcmykcolor{0 0 0 0.13}}
+\_let\.nBlue=\Blue 
+\_let\locc=\relax
+
+\_def\blackwhite{\_let\Blue=\Grey \_let\.nBlue=\Black \_let\Red=\Grey \_let\liBlue=\liGrey}
+\_let\.trysavetoner=\_relax
+
+\_def\savetoner{\_def\.trysavetoner{%
+  \_ifx\.drafttext\_empty
+     \_message{WARNING: final (not \_string\draft) version,
+              \_noexpand\savetoner ignored}
+  \_else
+     \_let\liBlue=\White
+  \_fi 
+}}
+
+\_hyperlinks{\Black}{\Black}
+\_def\_tocborder{1 .8 0} 
+\_let\_pgborder\_tocborder
+\_let\_citeborder\_tocborder
+\_let\_refborder\_tocborder
+\_let\_urlborder\_tocborder
+
+%%% Draft
+
+\_def\.drafttext{}
+\_def\draft{\_showlabels 
+     \_def\.drafttext{\_vbox to0pt{\_vss \_llap{   
+     \Grey \.bf\_thefontsize[11] Draft: \_the\_day. \_the\_month.
+     \_the\_year\Black}}}}
+
+\_def\linespacing=#1#2 {\_def\.thelinespacing{#1#2}}  
+\linespacing=1
+
+\_def\.setlinespacing{%
+   \_ifdim\.thelinespacing pt=1pt \_else
+      \_ifx\.drafttext\_empty 
+            \_message{WARNING: final (not \_string\draft) version, 
+                     \_noexpand\linespacing ignored}
+         \_else
+            \_baselineskip=\.thelinespacing\_baselineskip
+      \_fi 
+   \_fi
+}
+
+%%% PDF info data
+
+\_def\.pdfinfodata{%
+    \_pdfunidef\.tmpb{\_the\author}\_edef\.tmp{/Author(\.tmpb) /CreationDate(\_the\date) }%
+    \_pdfunidef\.tmpb{\_the\title}%
+    \_edef\.tmp{\.tmp /Creator(TeX + CTUstyle) /Title(\.tmpb) }%
+    \_pdfunidef\.tmpb{\_ifcase\.worktypenum
+             \_the\workname \_or \_mtext{B}\_or \_mtext{M}\_or \_mtext{D}\_fi}%
+    \_edef\.tmp{\.tmp /Subject(\.tmpb) /Keywords(\_the\keywordsEN)}%
+    \_pdfinfo{\.tmp}%
+}
+\_addto\makefront{\.pdfinfodata}
+
+%%% Title page
+
+\_def\.titlepage{
+   \_insertoutline{\_mtext{title}}
+   \_line{\Blue \_vrule height 230mm width 4mm \Black \_hss 
+      \_vbox to230mm{\_advance\_hsize by-8mm \_parindent=0pt
+         \_picwidth=3cm \_picdir={}\.bf
+         \_line{\_inspic{ctulogo-\_ifx\Blue\Grey bw-\_fi new.pdf}\_hss
+            \_vbox{\_advance\_hsize by-34mm
+               \_baselineskip=17pt\.bf\_thefontsize[15] 
+               \Blue \_mtext{ctu}\_par
+            \_kern.5pt}}
+         \_vskip8mm
+         \_line{\_hbox{\Blue\.bf\_thefontsize[32] \.printfaculty}\_hss
+             \_vbox{\_advance\_hsize by-34mm
+                \Black \_mtext{\_the\faculty}\_par
+                \_the\department}}
+         \_vskip5mm
+         \_ifcase\.worktypenum  
+                \_the\workname \_or \_mtext{B}\_or \_mtext{M}\_or \_mtext{D}\_fi 
+         \_vskip35mm
+         \_rightskip=0pt plus1fil
+         {\_typosize[25/30]\.boldify\.nBlue \_the\title \_par}
+         \_if&\_the\subtitle&\_else \_smallskip \_fi
+         {\_typosize[15/23]\.boldify\.nBlue \_the\subtitle \_par}
+         \_vskip15mm
+         {\.bf\_thefontsize[15]\Black \_the\author \_par}
+         \_the\studyinfo \_par
+         \_the\authorinfo \_par
+         \_vss
+         \_the\date\_par
+         \_the\workinfo\_par
+         \_if&\_the\supervisor&\_else 
+             \_ifnum\.worktypenum=3 \_mtext{supervisorD}%
+             \_else \_mtext{supervisor}\_fi: \_the\supervisor\_par\_fi
+         \_kern-\_prevdepth \_kern1pt
+}}}
+\_addto\makefront{%
+   \_bgroup \_hbadness=4000 
+   \_pageno=-1
+   \_footline={\_hss\.drafttext} \.titlepage \_vfil\_break
+}
+\_def\.printfaculty{\_edef\.tmpa{\_the\faculty}\_def\.tmpb{MUVS}%
+   \_ifx\.tmpa\.tmpb \_thefontsize[28] MÚVS\_else \_the\faculty \_fi}
+
+%%% Page Two
+
+\_def\.twosidepagetwo{\_null\_vskip0pt plus1fil {\_parindent=0pt \_the\pagetwo\_endgraf}}
+\_def\.onesidepagetwo{\_if&\_the\pagetwo&\_else\.twosidepagetwo\_fi}
+\_let\.printpagetwo=\.twosidepagetwo
+\_addto\makefront{\.printpagetwo \_endgraf\_break} 
+
+%%% Specification page
+
+\_def\.specifipage{\_if&\_the\specification&\_else
+   \_insertoutline{\_mtext{specifi}}
+   \_the\_ea\specification\_space \nextoddpage \_fi}
+\_addto\makefront{\.specifipage}
+
+%%% Common front page
+
+\_newbox\.leftbox  \_newbox\.rightbox
+\_newdimen\.frontht  \.frontht=220mm
+
+\_def\.sethsizefront{\_advance\_hsize by-12mm \_divide\_hsize by2 
+   \_emergencystretch=2em \_righthyphenmin=2 \_hbadness=5000 \_penalty0 }
+
+\_def\.frontpage [#1/#2]{
+   \_hrule height0pt \_vskip0pt plus 1filll
+   \_line{\.bf\_thefontsize[19]
+      \Blue\_hss\_llap{#1}
+      \_def\.tmp{}\_if$#1$\_else\_def\.tmp{/}\_fi \_if$#2$\_else\_def\.tmp{/}\_fi
+      \_hbox to10mm{\_hss\.tmp\_hss}\_rlap{#2}\Black\_hss}
+   \_nobreak\_medskip
+   \_line{\.sethsizefront
+      \_vtop to\.frontht{\_hrule width\_hsize height0pt \_unvbox\.leftbox \_vfil}\_hss
+      \Blue\_vrule height-2pt depth\.frontht width4mm\Black\_hss
+      \_vtop to\.frontht{\_hrule width\_hsize height0pt \_unvbox\.rightbox \_vfil}}
+}
+
+%%% Declaration page
+
+\_splittopskip=12pt plus20pt
+
+\_def\.prepbox#1{\_setbox0=\_vsplit #1to0pt \_relax}
+
+\_def\.declpage{
+   \_setbox\.leftbox=\_vbox{\.sethsizefront \_the\thanks}
+   \.prepbox\.leftbox
+   \_setbox\.rightbox=\_vbox{\.sethsizefront \_the\declaration}
+   \.prepbox\.rightbox
+   \_ifvoid\.leftbox \_ifvoid\.rightbox \_let\.declpage=\_relax \_fi\_fi
+   \_ifx\.declpage\_relax \_else
+      \_insertoutline{\_if&\_the\thanks&\_else\_mtext{thanks}\_fi/\_mtext{declaration}}
+      \.frontpage[\_if&\_the\thanks&\_else\_mtext{thanks}\_fi/\_mtext{declaration}]
+   \_fi
+}
+\_addto\makefront{%
+   \_footline={\_hss\.ssr\_thefontsize[11]\_romannumeral-\_pageno\_hss\.drafttext}
+   \.declpage \_vfil\_break
+}
+\_def\signature {\_vskip2cm \_indent\.tocdotfill\_null}
+\_def\.tocdotfill{\_leaders\_hbox to.4em{\_hss.\_hss}\_hskip 1em plus1fill\_relax} 
+
+
+%%% Abstract page
+
+\_def\.abstractpage{
+   \_chardef\.orilang=\_language
+   \_setbox\.leftbox=\_vbox{\.sethsizefront 
+         \_if&\_the\abstractCZ&\_sklang \_the\abstractSK \_par
+            \_let\.keywords=\keywordsSK 
+            \_let\.titleL=\titleSK
+            \_let\.subtitleL=\subtitleSK
+         \_else \_cslang \_the\abstractCZ \_par
+            \_let\.keywords=\keywordsCZ 
+            \_let\.titleL=\titleCZ
+            \_let\.subtitleL=\subtitleCZ
+         \_fi
+         \_if&\_the\.keywords&\_else{\.bf\_mtext{keywords}:} \_the\.keywords\_par\_fi
+         \_ifnum\.orilang=\_language \_else
+            \_if&\_the\.titleL&\_else{\.bf\_mtext{trans}:} \_the\.titleL
+               \_if&\_the\.subtitleL&\_else \_space(\_the\.subtitleL)\_fi\_fi\_fi
+         \_vfil}
+   \_setbox\.rightbox=\_vbox{\.sethsizefront 
+         \_enlang \_the\abstractEN \_par
+         \_if&\_the\keywordsEN&\_else{\.bf\_mtext{keywords}:} \_the\keywordsEN\_par\_fi
+         \_ifnum\.orilang=\_language \_else
+            \_if&\_the\titleEN&\_else{\.bf\_mtext{trans}:} \_the\titleEN
+               \_if&\_the\subtitleEN&\_else \_space(\_the\subtitleEN)\_fi\_fi\_fi
+         \_vfil}
+   \.prepbox\.leftbox \.prepbox\.rightbox
+   \_ifvoid\.leftbox \_ifvoid\.rightbox \_let\.abstractpage=\_relax \_fi\_fi
+   \_ifx\.abstractpage\_relax \_else
+      \_setbox0=\_vsplit\.leftbox to\.frontht
+      \_ifvoid\.leftbox
+         \_setbox\.leftbox=\_box0
+         \_insertoutline{Abstrakt/Abstract}
+         \.frontpage[Abstrakt/Abstract]
+      \_else
+         \_setbox1=\_box\.leftbox  % long abstracts, two pages for abstracts
+         \_setbox\.leftbox=\_box0
+         \_setbox0=\_box\.rightbox
+         \_setbox\.rightbox=\_box1
+         \_insertoutline{Abstrakt}
+         \.frontpage[Abstrakt/]
+         \_setbox\.leftbox=\_vsplit0 to\.frontht
+         \_setbox\.rightbox=\_box0
+         \_insertoutline{Abstract}
+         \.frontpage[Abstract/]
+   \_fi\_fi
+}
+\_addto\makefront{%
+   \.abstractpage \_vfil\_break
+}
+
+%%% Contents
+
+\_newbox\.tocbox
+
+\_everytocline={\_advance\_rightskip by0pt plus1em}
+\_sdef{_tocl:1}#1#2#3{\_nofirst\_smallskip \.bf\_llaptoclink{#1}{#2}\_hfill\_pgn{#3}\_tocpar}
+
+\_def\.tocpages{   
+   \_setbox\.tocbox=\_vbox{\.sethsizefront \_parskip=0pt \_iindent=7mm \_maketoc\_vfil}
+   \.prepbox\.tocbox
+   \_setbox\.rightbox=\_vsplit\.tocbox to\.frontht 
+   \_ifvoid\.tocbox
+      \_insertoutline{\_mtext{contents}}
+      \_ifodd\_pageno
+         \.frontpage[/\_mtext{contents}]
+      \_else
+         \_setbox\.leftbox=\_box\.rightbox
+         \.frontpage[\_mtext{contents}/]
+      \_fi
+   \_else
+      \_setbox\.leftbox=\_box\.rightbox
+      \_setbox\.rightbox=\_vsplit\.tocbox to\.frontht
+      \_insertoutline{\_mtext{contents}}
+      \.frontpage[\_mtext{contents}/]
+   \_fi
+   \_loop \_ifvoid\.tocbox \_let\.tmp=\_relax
+         \_else \_vfil\_break 
+                \_setbox\.leftbox=\_vsplit\.tocbox to\.frontht
+                \_setbox\.rightbox=\_vsplit\.tocbox to\.frontht
+                \.frontpage[/]\_let\.tmp=\_span 
+         \_fi
+         \_ifx\.tmp\_span \_repeat
+}
+\_addto\makefront{%
+   \.tocpages \_vfil\_break
+}
+
+%%% Tables / Figures
+
+\_newbox\.tofbox  \_newbox\.totbox
+
+\_refdecl{%
+\_def\.totlist{} \_def\.toflist{}^^J
+\_def\.Xtab#1#2#3{\_addto\.totlist{\.totline{#1}{#2}{#3}}}^^J
+\_def\.Xfig#1#2#3{\_addto\.toflist{\.tofline{#1}{#2}{#3}}}
+}
+\_ifx\.totlist\_undefined \_def\.totlist{}\_fi
+\_ifx\.toflist\_undefined \_def\.toflist{}\_fi
+
+\_def\.tofpages{
+   \_setbox\.tofbox=\_vbox{\.sethsizefront \_parskip=0pt \_iindent=9mm \.toflist\_vfil}
+   \_setbox\.totbox=\_vbox{\.sethsizefront \_parskip=0pt \_iindent=9mm \.totlist\_vfil}
+   \.prepbox\.tofbox \.prepbox\.totbox
+   \_let\.tmp=\_do
+   \_ifvoid\.tofbox \_ifvoid\.totbox \_let\.tmp=\_relax \_fi\_fi
+   \_ifx\.tmp\_do
+      \_insertoutline{\_ifvoid\.totbox\_else \_mtext{tables}\_fi/%
+                      \_ifvoid\.tofbox\_else \_mtext{figures}\_fi}
+      \_setbox\.leftbox=\_vsplit\.totbox to\.frontht
+      \_setbox\.rightbox=\_vsplit\.tofbox to\.frontht
+      \.frontpage[\_ifdim\_wd\.leftbox=0pt  \_else\_mtext{tables}\_fi/%
+                  \_ifdim\_wd\.rightbox=0pt \_else\_mtext{figures}\_fi]
+      \_loop \_let\.tmp=\_relax
+            \_ifvoid\.totbox \_else \_setbox\.leftbox=\_vsplit\.totbox to\.frontht
+                                 \_let\.tmp=\_do \_fi
+            \_ifvoid\.tofbox \_else \_setbox\.rightbox=\_vsplit\.tofbox to\.frontht 
+                                 \_let\.tmp=\_do \_fi
+            \_ifx\.tmp\_do \_vfil\_break \.frontpage[/] \_repeat
+   \_fi
+}
+\_addto\makefront{%
+   \.tofpages \_vfil\_break
+}
+
+%%% Typessetting of the document:
+
+\_addto\makefront{%
+   \_footline={\_hss\.drafttext}
+   \_ifodd\_pageno\_else \_ifx\.printpagetwo\.twosidepagetwo \_null\_vfil\_break \_fi\_fi
+   \_pageno=-\_pageno \_advance\_pageno by-1 % page ranges (roman/decimal numeral)
+   \_pdfcatalog{/PageLabels<</Nums[0<</S/r>>\_the\_pageno<</S/D>>]>>}
+   \_egroup
+   \.setlinespacing
+   \.trysavetoner
+   \_pageno=1
+   \_footline={\_hss\.ssr\_thefontsize[11]\_the\_pageno\_hss\.drafttext}
+   \_outlines{0}\_pdfcatalog{/PageMode /UseOutlines}
+}
+
+%%% Chapter, section
+
+\_def\_printchap#1{\_vfil\_supereject \_vglue1cm
+  \_headline={\_hfil\.nextheadline}
+  \_xdef\.headchap{\_ifnonum\_else\_thechapnum.\ \_fi#1}
+  \_mark{}\_nobreak
+  \.begitemstest\chap
+  \_line{\Blue\_vrule height 11mm width4mm depth10mm
+  \_hss\_vtop{\_parskip=0pt \_advance\_hsize by-8mm
+     \.chapfont \_noindent
+     \Black \_ifnonum\_else\_mtext{chap} \_fi
+     {\.bf\_thefontsize[30]\_printrefnum[@]}\_par\_nobreak
+  \_noindent\.nBlue #1\_rightskip=0pt plus1fil \_strut\_nbpar}}%
+  \_nobreak\_vskip-.5\_parskip 
+  \_belowtitle{\_bigskip}
+  \_firstnoindent
+}
+
+\_def\_printsec#1{\_par \_abovetitle{\_goodbreak} 
+  \_bigskip\_medskip\_vskip.5\_parskip
+  \.begitemstest\sec
+  \_line{\Blue\_vrule height 6mm width4mm depth1mm
+  \_hss\_vtop{\_advance\_hsize by-8mm
+     \.secfont \_noindent \Black\_printrefnum[@\_quad]%
+     \.nBlue#1\_rightskip=0pt plus1fil \_strut\_nbpar}}%
+  \_insertmark{#1}%
+  \_nobreak\_vskip-.5\_parskip 
+  \_belowtitle{\_medskip}
+  \_firstnoindent
+}
+
+\_def\_printsecc#1{\_par \_abovetitle{\_goodbreak} 
+  \_smallskip\_medskip\_vskip.5\_parskip
+  \.begitemstest\secc
+  \_line{\Blue\_vrule height 3.5mm width4mm depth.3mm\Black 
+  \_hss\_vtop{\_advance\_hsize by-8mm
+   \.seccfont \_noindent \_printrefnum[@\_quad]%
+   \.nBlue#1\_rightskip=0pt plus1fil \_strut\_nbpar\_kern-4.5pt}}%
+   \_nobreak\_vskip-.5\_parskip\_smallskip\_vskip2pt\_relax
+  \_firstnoindent
+}
+\_def\.nextheadline{\_global\_headline={\.printheadline}}
+
+\_def\.printheadline{\.ssi\_thefontsize[10]\_ifodd\_pageno
+     \_hskip-3.7cm\.tecky\_if&\_firstmark&\_else\ \_fi\Grey\_firstmark\Black
+   \_else\Grey\.headchap\ \.tecky\_hskip-3.7cm\_fi}
+
+\_def\onesideprinting{\_def\.printheadline{\.ssi\_thefontsize[10]
+     \Grey\_ea\.ignoretospace\.headchap\ \.tecky
+     \_if&\_firstmark&\_else\ \_fi\Grey\_firstmark\Black}
+   \_def\nextoddpage{\vfil\supereject}\shiftoffset=0pt 
+   \_let\.printpagetwo=\.onesidepagetwo
+}
+\_def\.ignoretospace#1\ {}
+
+{\.bf\_thefontsize[25] \_global\_ea\_let\_ea\.bigdotfont\_the\_font}
+\_def\.tecky{\liBlue\_xleaders\_hbox to10.5pt{\.bigdotfont\_hss.\_hss}\_hfil\Black}
+
+\_def\.begitemstest#1{\_ifnum\_catcode`\*=13 
+   \_message{WARNING: \_string#1 used in \_string\begitems...\_noexpand\enditems 
+            environment (line: \_the\_inputlineno)}\_fi}
+
+%%% Appendicies
+
+\_newcount\.appnum
+\_def\.appletter{\_ifcase\.appnum ?\_or A\_or B\_or C\_or D\_or E\_or F\_or G\_or H\_or
+   I\_or J\_or K\_or L\_or M\_or N\_or O\_or P\_or Q\_or R\_or S\_or T\_or U\_or V\_or
+   W\_or X\_or Y\_or Z\_else ?\_fi}
+
+\_optdef\app[]{\_istoksempty\_opt\_iffalse \_label[\_the\_opt]\_fi \.inapp}
+
+\_eoldef\.inapp#1{\_sectionlevel=1
+  \_global\_advance\.appnum by1
+  \_def \_savedtitle {#1}% saved to .ref file 
+  \_ifx\chap\.nochap \_else \nextoddpage \_global\_let\chap=\.nochap \_fi
+  \_secnum=0 \_seccnum=0 \_relax
+  \_edef\_therefnum{\.appletter}
+  \_gdef\_thesecnum{\.appletter.\_the\_secnum}
+  \_gdef\_theseccnum{\.appletter.\_the\_secnum.\_the\_seccnum}
+  \.printapp{#1}
+  \_resetnonumnotoc
+}
+\_def\.nochap#1\par{\_message{CTUstyle WARNING: \_noexpand\chap inside
+                           Appendices is ignored.}}
+
+\_def\.printapp#1{\_vfil\_supereject \_vglue1cm
+  \_headline={\_hfil\.nextheadline}
+  \_xdef\.headchap{\.appletter\ #1}
+  \_mark{}\_nobreak
+  \.begitemstest\app
+  \_line{\Blue\_vrule height 11mm width4mm depth10mm\Black
+  \_hss\_vtop{\_parskip=0pt\_advance\_hsize by-8mm
+     \.chapfont \_noindent
+     \_mtext{appendix} {\.bf\_thefontsize[30]\_relax\_printrefnum[@]}\_par\_nobreak
+  \_noindent\.nBlue #1\_strut\_nbpar}}%
+  \_nobreak\_bigskip
+  \_firstnoindent
+}
+\_def\bibchap{\_nonum \_inchap{\_mtext{bibliography}}}
+
+
+%%% Captions
+
+\_def\_thetnum{\_thechapnum.\_the\_tnum}
+\_def\_thefnum{\_thechapnum.\_the\_fnum}
+
+\_everycaptiont={%
+    \_ifx\.clabeltext\_undefined \_else
+      \_toks0=\_ea{\.clabeltext}%
+      \_ea\_ifx\_tmpa t\_edef\.tmp{\_noexpand\_wref\_noexpand\.Xtab
+                       {{\_lastlabel}{\_thetnum}{\_the\_toks0}}}\.tmp
+      \_else  \_edef\.tmp{\_noexpand\_wref\_noexpand\.Xfig
+                       {{\_lastlabel}{\_thefnum}{\_the\_toks0}}}\.tmp
+   \_fi\_fi
+   \_global\_let\_clabeltext=\_undefined
+   \_vskip-\_parskip
+}  
+\_everycaptionf=\_everycaptiont
+
+\_def \_printcaptiont {\_typosize[10/12]
+   \_noindent \_wlabel\_thecapnum {\.bf\_thecaptitle~\_thecapnum.}\_enspace
+   \_narrowlastlinecentered\_iindent
+}
+\_let \_printcaptionf = \_printcaptiont % caption of figures = caption of tables
+
+
+\_def\clabel[#1]#2{\_gdef\.clabeltext{#2}\_label[#1]}
+
+\_def\.tofline#1#2#3{{\_leftskip=\_iindent \_rightskip=\_iindent plus1em
+   \_noindent\_llap{\.bf\_ref[#1]\_enspace}%
+   {#3\_unskip}\_nobreak\.tocdotfill\_pgref[#1]\_nobreak\_hskip-\_iindent\_null\_par}}
+\_let\.totline=\.tofline
+
+
+%%% Numbering concept
+
+\addto \_chapx {\_tnum=0 \_fnum=0 \_dnum=0 \_resetABCDE }
+\def   \_secx  {\_seccx \_seccnum=0 }
+
+\_def \_printnumberedpar #1#2{\_par
+   \_noindent\_wlabel #1%  \bf instead \_bf:
+   {\bf #2 #1\_istoksempty\_opt\_iffalse \_space \_the\_opt \_fi.}\_space
+   \_ignorespaces
+}
+\_def\_theAnum {\_the\_chapnum.\_the\_counterA}
+\_def\_theBnum {\_the\_chapnum.\_the\_counterB}
+\_def\_theCnum {\_the\_chapnum.\_the\_counterC}
+\_def\_theDnum {\_the\_chapnum.\_the\_counterD}
+\_def\_theEnum {\_the\_chapnum.\_the\_counterE}
+
+%%% Blue verbatim
+
+\everytt={\typosize[10.5/13.6]}
+\_def\_printverbline#1{\penalty \_ttpenalty \noindent 
+   \rlap{\vbox to0pt{\vss\liBlue 
+         \hrule width\hsize height10pt depth4pt \kern-4pt}}%
+   \_printverblinenum \hskip 1em #1 \par
+}
+\_def\_initverblinenum{}
+\_def\_printverblinenum{\_global\_advance\_ttline by1 \_llap
+    {\Blue \.sevenss \_the\_ttline\_kern.9em}}
+
+%%% Blue centered tables
+
+\_def\ctable#1#2{
+   \_centerline{\_setbox0=\_table{#1}{#2}%
+   \_rlap{\liBlue \_tmpdim=\_ht0 \_advance\_tmpdim by3pt
+   \_ifdim\_dp0>3pt \_dimen0=\_dp0 \_advance\_dimen0 by3pt \_else \_dimen0=5pt\_fi
+   \_vrule width\_wd0 height\_tmpdim depth\_dimen0\Black}\_box0}\_nobreak\_medskip
+}
+
+\_def\cinspic#1 {\_centerline{\_inspic #1 }\_nobreak\_medskip}
+\_def\endinsert{\_par\_endinsert}
+\_tabiteml={\_kern\_iindent} \_tabitemr={\_kern\_iindent}
+
+
+%%% Golossary (OPmac trick 0051, 0053, 0054
+
+\_newdimen\.maxglosindent
+\_def\.gloslist{}
+\_def\glos #1#2{%
+   \_ea\_isinlist\_ea\.gloslist\_csname;\_detokenize{#1}\_endcsname
+   \_iftrue \_opwarning{Duplicated glossary item `#1'}%
+   \_else
+      \_global\_sdef{;\_detokenize{#1}}{{#1}{#2}}%
+      \_global\_ea\_addto\_ea\.gloslist\_csname;\_detokenize{#1}\_endcsname
+   \_fi
+}
+\_def\makeglos{%
+   \_ifx\.gloslist\_empty \_opwarning{Gossary data unavailable}%
+   \_else
+      \_bgroup
+        \_ifx \dosorting\_relax \_else \_dosorting \.gloslist \_fi
+        \_ifdim\.maxglosindent=0pt 
+           \_ifx\.glosindent\_undefined \.maxglosindent=2\_parindent
+              \_edef\.glosindent{\_the\.maxglosindent}\_fi
+        \_else \_edef\.glosindent{\_the\.maxglosindent}\_fi
+        \.maxglosindent=0pt
+        \_def\.act##1{\_ifx##1\_relax \_else\_ea\.printglos##1\_ea\.act\_fi}
+        \_ea\.act\.gloslist\_relax
+        \_immediate\_write\_reffile{\_string\_def\_string\.glosindent{\_the\.maxglosindent}}
+      \_egroup
+   \_fi
+}
+\_def\glosref #1#2{\_if^#2^\_else \.glos{#1}{#2}\_fi 
+   \.makegloslink{#1}\_link[glos:\.tmp]{}{#1}}
+\_def\glref #1{\.glosref{#1}{}}
+\_let\_glosborder=\_tocborder
+
+\_nsprivate \glosref \glos ;
+
+\_def\.printglos#1#2{%
+   \_setbox0=\_hbox{#1}\_ifdim\_wd0>\.maxglosindent \.maxglosindent=\_wd0 \_fi
+   \_noindent \_hangindent=\.glosindent \_advance\_hangindent by2em
+      \_hbox to\.glosindent{\.makegloslink{#1}\_dest[glos:\.tmp]#1\_hss}%
+      \_hbox to2em{\_hss\.noramlitem\_hss}#2\_par}
+
+\_def\.makegloslink#1{\_edef\.tmpb{\_detokenize{#1}}%
+   \_def\.tmp{}\_ea\.makegloslinkA\.tmpb\_relax}
+\_def\.makegloslinkA#1{\_ifx#1\_relax \_else
+   \_edef\.tmp{\.tmp\_number`#1.}\_ea\.makegloslinkA\_fi}
+
+
+%%% Requests for corrections (OPmac trick 0056)
+
+\_newcount\.rfcnum
+
+\_def\.rfclist{}  
+\_def\.rfcactive#1{\_global\_advance\.rfcnum by1
+   \_dest[rfc:rfc-\_the\.rfcnum]\_global\_addto\.rfclist{\.rfcitem #1}}
+\_def\rfc#1{}
+\_def\.rfcitem{\_advance\.rfcnum by1
+   \_medskip\_noindent\_llap{\_link[rfc:rfc-\_the\.rfcnum]{\Red}{[rfc-\_the\.rfcnum]} }}
+
+\_addto\draft{\_let\rfc=\.rfcactive}
+
+\_def\.makerfc{\_ifx\rfc\.rfcactive
+   \_vfil\_break {\.secfont \_noindent Requests for correction}\_par
+   \_bgroup\_rfcnum=0 \.rfclist\_egroup\_fi}
+
+\_let\_rfcborder=\_tocborder
+
+\_addto\_byehook{\.makerfc}
+
+%%% Items
+
+\_def\.normalitem{\Blue{\.bf\_thefontsize[30].\_kern-2pt}\Black\_enspace}
+\_defaultitem={\.normalitem}
+\_sdef{_item:x}{\_raise.4ex\_hbox{\Blue\.bf\_thefontsize[17].\Black} }
+\_sdef{_item:n}{\_the\_itemnum.\_kern.25em }
+\_addto\_begitems{\_vskip.5\_parskip \_parskip=0pt\_relax}
+\_addto\_enditems{\_vskip-.5\_parskip}
+
+%%% BibItems
+
+\_bibtexhook={%
+   \_def\preurl{}%
+   \_parindent=2\_iindent
+   \_def\url#1{\_unskip\_hfil\_break{\_typosize[10/]\_nobreak\_space\_url{#1}}}
+}
+\_def\_printbib{\_hangindent=2\_iindent
+   \_ifx\_citelinkA\_empty \_noindent\_hskip2\_iindent \_llap{[\_the\_bibnum] }%
+   \_else \_noindent \_fi
+}
+\_addto\_bibskip{\_ifnum\_bibnum>0 \_vskip-\_parskip \_fi}
+
+%%% Last thinks:
+
+\_def\abbrv[#1]{\_par \_noindent\_llap{#1\_quad}\_ignorespaces}
+
+\_def\urlnote#1{\_fnote{\_url{#1}}}
+\_def\nextoddpage{\_vfil\_supereject
+   \_ifodd\_pageno \_else \_shipout\_null \_advancepageno \_fi}
+
+\_shortcitations
+\_def\dprime{"}
+\_activettchar"
+
+\_let\urllink=\_ulink
+
+\_endnamespace % ctustyle
+\_endcode
+
+%%% Versions:
+
+beta(a) Sep.2013  First version CTUstyle3 for OpTeX released

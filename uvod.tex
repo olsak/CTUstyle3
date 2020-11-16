@@ -1,0 +1,280 @@
+% Lokální makra patří do hlavního souboru, ne sem.
+% Tady je mám výjimečně proto, že chci nechat hlavní soubor bez maker,
+% která jsou jen pro tento dokument. Uživatelé si pravděpodobně budou
+% hlavní soubor kopírovat do svého dokumentu.
+
+\def\ctustyle{{\ssr CTUstyle}}
+\def\ttb{\tt\char`\\} % pro tisk kontrolních sekvencí v tabulkách
+
+\chap Úvod
+
+Tento dokument popisuje užití \TeX{}ového makra \ctustyle{}, které
+možná bude oficiálně doporučeno na tvorbu bakalářských, magisterských a doktorských
+studentských závěrečných prací na Českém vysokém učení technickém v~Praze.
+Zdrojový text tohoto dokumentu může posloužit jako příklad, jak vytvořit
+vlastní dokument.
+
+Abyste mohli použít tuto šablonu, potřebujete mít základní znalost 
+o~\TeX{}u~\cite[prvni,tpp] a součástí \TeX/ové instalace musí být 
+\OpTeX/\urlnote{http://petr.olsak.net/optex}. 
+Předchozí verze této šablony předpokládají místo \OpTeX/u užití 
+\csplain/u %\urlnote{http://petr.olsak.net/csplain.html} 
+a makra OPmac.%\urlnote{http://petr.olsak.net/opmac.html}.
+%Pro pokročilejší \TeX{}isty jsou k~dispozici knihy~\cite[tbn,tst,texbook].
+\OpTeX/ je (od roku 2020) součástí balíčku 
+\TeX{}live\urlnote{http://www.tug.org/texlive/} 
+na většině linuxových distribucí.
+\TeX{}live je volně dostupný software a je možné jej 
+instalovat i na Macintosh nebo MS~Windows.
+
+\sec Minimální dokument
+
+Můžete si vytvořit soubor "minimal.tex" s~tímto obsahem:
+
+\begtt
+\input ctustyle3
+\worktype [B/CZ]
+\faculty {F3}
+\department {Katedra permoníků}
+\title {Minimální dokument}
+\author {Pepa z Depa}
+\date {Leden 2013}
+\abstractEN {This document is for testing purpose only.}
+\abstractCZ {Tento dokument je pouze pro potřeby testování.}
+\declaration {Prohlašuji, že jsem se neflákal.}
+\makefront
+
+\chap Úvod
+Text úvodu.
+
+\sec Myšlenka
+Další text.
+\bye
+\endtt
+
+Založte si pracovní adresář a do něj dejte šablonu "ctustyle3.tex" a logo
+ČVUT "ctulogo-new.pdf". Také tam dejte všechny soubory s různými variantami
+fontů Technika s příponami "otf". Konečně tam uložte výše zmíněný
+soubor "minimal.tex" a zpracujte jej \OpTeX/em. To znamená,
+že na příkazový řádek napíšete:
+
+\begtt
+optex minimal
+\endtt
+
+
+Objeví se varování o~chybějících údajích pro obsah. Zpracujte tedy tento soubor 
+\OpTeX/em ještě jednou. Nyní by už měla všechna varování zmizet a
+vytvoří se soubor "minimal.pdf".
+
+Co obsahuje minimální dokument? Na prvním řádku je zavedeno makro
+\ctustyle{} ve verzi 3. Druhý řádek určuje
+typ dokumentu. Jsou k~dispozici následující možnosti (vyberte jen jednu
+z~nich):
+
+\begtt
+\worktype [B/CZ] % bakalářka v češtině
+\worktype [B/SK] % bakalářka ve slovenštině
+\worktype [B/EN] % bakalářka v angličtině
+\worktype [M/CZ] % diplomka v češtině
+\worktype [M/SK] \worktype [M/EN] % diplomka ve slovenštině, angličtině
+\worktype [D/EN] % disertace v angličtině
+\worktype [D/CZ] \worktype [D/SK] % to snad asi ne :-)
+\worktype [O/CZ] \worktype [O/SK] \worktype [O/EN] % ostatní typ práce
+\endtt
+
+Dále v~příkladu minimálního dokumentu následují tzv. {\em deklarační 
+příkazy}, které vymezují základní údaje o~dokumentu.
+Žádný z~nich nesmí chybět, jinak \TeX{} ohlásí chybu. 
+
+Pak následuje příkaz "\makefront", který vytvoří titulní stranu, vypíše text
+prohlášení a texty abstraktů a také vytvoří obsah dokumentu (včetně
+případného seznamu obrázků a tabulek).
+
+Za příkazem "\makefront" pokračuje text dokumentu. Kapitola je zahájena 
+příkazem "\chap" a sekce příkazem "\sec". Za těmito příkazy následuje název
+kapitoly, resp. sekce. 
+
+\sec Deklarační příkazy vymezující údaje o~dokumentu
+
+Kromě výše zmíněných povinných deklaračních příkazů je obvyklé použít i
+některé další. 
+Všechny tyto příkazy jsou uvedeny v~tabulce~\ref[deklarace].
+Není-li některý z~nepovinných deklaračních příkazů v~dokumentu 
+uveden, znamená to, že odpovídající údaj je prázdný.
+Na pořadí deklaračních příkazů v~dokumentu nezáleží,
+ale všechny musejí být umístěny před příkazem~"\makefront".
+
+\midinsert
+\clabel[deklarace]{Seznam deklaračních příkazů}
+\def\*{{\rm*}}
+\bigskip
+\ctable{ll}{
+\quad Příkaz  & \quad Význam \crl \tskip 4pt
+\ttb faculty \*     & Fakulta. Možnosti: F1, F2, F3, \dots, F8, MUVS \cr
+\ttb department \*  & Název katedry nebo ústavu. \cr
+\ttb title \*       & Titul dokumentu. \cr
+\ttb subtitle       & Doplňkový titul dokumentu. \cr
+\ttb author \*      & Jméno a příjmení autora. \cr
+\ttb supervisor     & Jméno a tituly vedoucího práce (školitele u Ph.D.). \cr
+\ttb date \*        & Měsíc a rok vytvoření práce. \cr
+\ttb authorinfo     & email autora nebo něco podobného. \cr
+\ttb studyinfo      & Název studijního programu, studijního oboru. \cr
+\ttb workinfo       & URL práce, loga sponzorů nebo něco podobného. \cr
+\ttb workname       & Jméno typu práce, je-li typu \uv{ostatní}. \cr
+\ttb titleEN        & Titul práce, není-li {\ttb title} v~angličtině. \cr
+\ttb titleCZ        & Titul práce, není-li {\ttb title} v~češtině. \cr
+\ttb titleSK        & Analogie jako {\ttb titleCZ} pro slovenštinu. \cr
+\ttb subtitleEN     & Doplňkový titul, není-li {\ttb subtitle} v~angličtině. \cr
+\ttb subtitleCZ     & Doplňkový titul, není-li {\ttb subtitle} v~češtině. \cr
+\ttb subtitleSK     & Analogie jako {\ttb subtitleCZ} pro slovenštinu. \cr
+\ttb pagetwo        & Text umístěný na straně dva za titulní stránkou dole. \cr
+\ttb abstractEN \*  & Abstrakt v~angličtině. \cr
+\ttb abstractCZ \*  & Abstrakt v~češtině. \cr
+\ttb abstractSK     & Abstrakt ve slovenštině (nahrazuje {\ttb abstractCZ}). \cr
+\ttb keywordsEN     & Klíčová slova v~angličtině. \cr
+\ttb keywordsCZ     & Klíčová slova v~češtině. \cr
+\ttb keywordsSK     & Klíčová slova slovensky (nahrazuje {\ttb keywordsCZ}). \cr
+\ttb thanks         & Text poděkování. \cr
+\ttb declaration \* & Text prohlášení. \cr
+\ttb specification  & Zadání práce, viz sekci~\ref[ozadani]. \cr
+}\par\nobreak\medskip
+\caption/t Seznam deklaračních příkazů. Hvězdičkou jsou označeny povinné příkazy.
+\endinsert
+
+Za každým deklaračním příkazem následuje údaj uzavřený do složených závorek
+"{...}". Údaje pište v~hlavním jazyku dokumentu, tj. v~jazyku, který jste
+vyplnili v~parametru příkazu "\worktype". Pouze údaje ve tvaru "\slovoEN" resp.
+"\slovoCZ" resp. "\slovoSK" vyplňujte v~jazyce podle zkratky v~názvu
+příkazu.
+
+Mezi povinné údaje patří "\abstractEN" a dále jeden ze dvou "\abstractCZ"
+nebo "\abstractSK". I~když je hlavním jazykem dokumentu angličtina, vyžaduje
+se uvést ještě abstrakt v~místním nebo mateřském jazyce.
+
+Není-li hlavním jazykem dokumentu angličtina, doporučuje se uvést údaj
+"\titleEN", resp. "\subtitleEN", s~překladem názvu, resp. podnázvu, do
+angličtiny. A~obráceně: je-li hlavním jazykem angličtina, je samozřejmě údaj
+"\title" v~tomto jazyce. Pak se ale doporučuje uvést ještě údaje
+"\titleCZ", "\subtitleCZ" nebo "\titleSK", "\subtitleSK". Tyto údaje se
+objeví pod abstraktem v~daném jazyce.
+
+Je-li titul příliš dlouhý, pak se na titulní straně pravděpodobné rozlomí do
+více řádků. Někdy ale by si člověk přál jiné rozlomení, než vymyslel stroj,
+protože je vhodnější rozdělit název do řádků podle významových celků, kterému stroj
+nemůže rozumět. V~takovém případě můžete do názvu do místa, 
+kde si přejete provést zlom, 
+přidat příkaz "\nl" (zkratka za new line).
+
+Typ dokumentu (B, M, D) se v~hlavním jazyce vytiskne na titulní straně jako
+\uv{bakalářská práce}, \uv{diplomová práce} atd.
+Pokud tvoříte jiný typ dokumentu, pište "\worktype[O/CZ]" (nebo jiný jazyk).
+V~takovém případě jsou deklarační příkazy "\declaration", "\abstractEN",
+"\abstractCZ/SK" nepovinné a typ práce je naopak nutné vymezit deklaračním příkazem
+"\workname". Například:
+
+\begtt
+\workname {Domácí úkol do předmětu AB004C}
+\endtt
+
+Doporučuji vyjít ze zdrojového souboru tohoto dokumentu "ctustyle-doc.tex" 
+a zkopírovat si ho do výchozího souboru vaší práce, například "bakalarka.tex".
+Pak v~tomto souboru udělejte změny na místech, kde se vaše práce liší od
+tohoto dokumentu. Svou práci pak můžete \TeX{}ovat příkazem:
+
+\begtt
+optex bakalarka
+\endtt
+
+
+\sec Rozvržení zdrojového textu dokumentu
+
+Je na autorovi, zda se rozhodne za příkazem "\makefront" pokračovat ve psaní
+a vloží celý svůj dokument do jediného zdrojového souboru (podobně jako zde minimální
+dokument). V~případě rozsáhlejší práce ovšem je někdy výhodné rozdělit
+dokument například podle kapitol na jednotlivé soubory a každou kapitolu
+načítat jako soubor zvlášť příkazem "\input". Tato koncepce je předvedena 
+v~souboru "ctustyle-doc.tex".
+
+Čtenářům doporučuji podívat se do zdrojových souborů tohoto dokumentu
+"uvod.tex", "popis.tex" a "prilohy.tex", aby se seznámili s~tím, jak vypadá
+\uv{kultura psaní zdrojových souborů}. Je třeba se vyhnout tomu, aby to bylo
+zmastěné tak, že se v~tom nikdo nevyzná, třebaže je \TeX{} dosti tolerantní.
+Podobnost s~jinými programovacími jazyky není čistě náhodná.
+
+Pokud jste si důkladně prohlédli soubor "ctustyle-doc.tex", jistě jste si všimli, že
+je tam použit znak~{\tt\%} jako komentářový znak, který zahajuje komentář
+(až do konce řádku). Komentáře jsou při zpracování dokumentu ignorovány. 
+Můžete se zaměřit při zpracování dokumentu jen na jednu kapitolu, pokud ostatní
+příkazy "\input soubor" zakryjete procentem. To je obvyklá praxe, když se
+člověk soustředí na jeden menší problém a nechce se zdržovat zpracováním
+celého dokumentu.
+
+
+\sec Pracovní prostředí
+
+Textový editor, ve kterém pořizujete zdrojový text dokumentu, je volbou
+každého autora. V~této věci zde nenajdete žádné doporučení. Prohledejte
+internet, zeptejte se kolegů. Editor samozřejmě musí být \uv{programátorský
+editor}, tj. nesmí si vymýšlet žádné skryté formátovací elementy. Soubor
+musí být uložen na disk jako prostý text v~kódování češtiny nebo slovenštiny 
+v~UTF-8. Výhodné je, pokud editor disponuje možností použít klávesovou zkratku
+na spuštění externího příkazu, v~tomto případě příkazu 
+"optex". Ve vedlejším okně můžete mít trvale spuštěný prohlížeč PDF
+dokumentů konfigurovaný tak, aby dokázal poznat, že došlo ke
+změně PDF dokumentu a obnovil v~takovém případě zobrazení dokumentu.
+
+\sec Potřebné soubory pro zpracování
+
+Dokument je rozumné zpracovávat včetně vkládaných obrázků (ve formátu JPG,
+PNG nebo PDF) v~jednom vyhrazeném adresáři. \TeX{} musí být také schopen
+dohledat soubor se šablonou "ctustyle3.tex", soubory pro fonty Technika 
+("Technika-*.otf") a logo
+"ctulogo-new.pdf". To nejjednodušeji zajistíte tak, že tyto soubory budou
+přítomny také v~pracovním adresáři dokumentu. 
+Není to ale nutné. Můžete je nakopírovat do \TeX{}ové distribuce, tj. uložit
+je na vhodné místo (podle návodu k~\TeX{}ové distribuci) a spustit
+obnovovací příkaz typu "texhash". Pak tyto soubory \TeX{} dokáže dohledat a
+nemusíte je mít v~aktuálním adresáři. 
+
+Máte-li \TeX{}live, pak potřebné soubory můžete také nakopírovat do
+uživatelského adresáře "texmf/", který je dále roztříděn podle typu: 
+"tex/" a "fonts/opentype/". 
+To má tu výhodu, že když později obnovíte systém nebo
+kompletně celou \TeX{}ovou distribuci, soubory do
+systému nemusíte kopírovat znovu. V prostředí Linuxu a příkazového řádku
+vypadá tato činnost následovně:
+
+\begtt
+unzip ctustyle2.zip
+cd ctustyle2
+mkdir -p ~/texmf/tex/ctustyle3/ ~/texmf/fonts/opentype/technika/
+cp ctustyle3.tex ctulogo-*.pfb ~/texmf/tex/ctustyle2/
+cp Technika-*.otf ~/texmf/fonts/opentype/technika/
+\endtt
+
+V myšoidně zaměřených operačních systémech musíte k dosažení téhož nějakým
+způsobem pohybovat a klikat myší. 
+
+Všechny soubory, které jsou součástí \ctustyle{}, jsou vyjmenovány a jejich
+význam je vysvětlen v příloze~\ref[seznamfilu].
+
+
+\sec Řešení problémů
+
+Je možné, že budete mít instalovánu starší distribuci \TeX{}live, která
+neobsahuje \OpTeX. Pak můžete \OpTeX/ instalovat dle návodu na 
+stránce\urlnote{http://petr.olsak.net/optex} nebo použít verzi 2 nebo 1
+šablony \ctustyle, která nevyžaduje \OpTeX/ a vystačí si s \csplain/em, jenž
+je v \TeX/ových distribucích v potřebné verzi už od roku 2013.
+
+Soubor maker \ctustyle{} je zatím v~testovacím provozu. Není vyloučeno, že
+se objeví nějaké chyby nebo záhadné chování. Máte-li pocit, že se tak stalo,
+zašlete prosím na adresu "petr@olsak.net" popis chyby a připojte k~němu
+".log" soubor dokumentu a pokud možno minimální ukázkový dokument, na kterém
+je chyba patrná.
+
+Autor \ctustyle{} je připraven prostřednictvím emailu poradit
+jakémukoli studentu ČVUT se záludnostmi při formátování závěrečné práce,
+pokud pro formátování použil \csplain{} nebo \OpTeX/ (tedy nikoli \LaTeX).
+

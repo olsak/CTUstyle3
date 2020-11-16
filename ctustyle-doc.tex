@@ -1,0 +1,99 @@
+% The documentation of the usage of CTUstyle -- the template for
+% typessetting thesis by plain\TeX at CTU in Prague
+% ---------------------------------------------------------------------
+% Petr Olsak  Jan. 2013
+
+% You can copy this file to your own file and do some changes.
+% Then you can run:  optex your-file
+
+\input ctustyle3  % The template (in version 3, for OpTeX) is included here.
+
+\worktype [O/CZ] % Type: B = bachelor, M = master, D = Ph.D., O = other
+                 % / the language: CZ = Czech, SK = Slovak, EN = English
+
+\faculty    {F3}  % Type your faculty F1, F2, F3, etc. or MUVS
+            % use main language of your document here:
+\department {Katedra kybernetiky}
+\title      {CTUstyle -- návod k použití}
+\subtitle   {Šablona v \OpTeX/u\nl pro sazbu 
+             studentských závěrečných prací na ČVUT}
+            % \subtitle is optional
+\author     {Petr Olšák}
+\date       {Leden 2013, srpen 2020}
+\supervisor {}  % One or more supervisors
+\studyinfo  {}  % Study programme etc.
+\workname   {Dokumentace} % Used only if \worktype [O/*] (Other)
+            % optional more information about the document:
+\workinfo   {\url{http://petr.olsak.net/ctustyle.html}}
+            % Title / Subtitle in minor language:
+\titleEN    {CTUstyle -- the user manual}
+\subtitleEN {the \OpTeX/ template for theses at CTU}
+            % If minor language is other than English
+            % use \titleCZ, \subtitleCZ or \titleSK, \subtitleSK instead it.
+\pagetwo    {}  % The text printed on the page 2 at the bottom.
+
+\abstractEN {
+   This document shows and tests an usage of the plain\TeX{} officially
+   (may be) recommended design style {\ssr CTUstyle} for bachelor (Bsc.), master
+   (Ing.), or doctoral (Ph.D.) theses at the Czech Technical University in
+   Prague. The template defines all thesis mandatory structural elements and
+   typesets their content to fulfil the university formal rules.
+
+   This is version 3 of this template which is derived from previous version 2 (for
+   plain \TeX), but the version 3 supports \OpTeX/ format.
+   It implements the Technika font
+   recommended by CTU graphics identity reference since 2016.
+}
+\abstractCZ {
+   Tento dokument ukazuje a testuje použití (možná) oficiálně doporučené 
+   \OpTeX/ové šablony {\ssr CTUstyle} pro sazbu bakalářských, 
+   diplomových a disertačních prací na Českém vysokém učení technickém v~Praze. 
+   Šablona definuje všechny povinné strukturní
+   elementy zmíněných závěrečných prací a formátuje jejich obsah tak, aby
+   splňovala na škole daná formální pravidla.
+
+   Toto je verze 3 této šablony, která vychází z předchozí verze 2 pro plain\TeX, 
+   ale je určena pro zpracování formátem \OpTeX. 
+   Implementuje písmo Technika v~souladu s doporučením manuálu vizuálního
+   stylu, který zavedlo ČVUT v~roce 2016.
+}           % If your language is Slovak use \abstractSK instead \abstractCZ
+
+\keywordsEN {%
+   document design template; bachelor, master, Ph.D. thesis; \TeX{}.
+}
+\keywordsCZ {%
+   styl dokumentu; šablona; 
+   bakalářská, diplomová, disertační závěrečná práce; \TeX{}.
+}
+\thanks {           % Use main language here
+   Chtěl bych poděkovat své manželce Ludmile za podporu nejen finanční.
+   Díky tomu mohu na svém pracovišti dělat, co mě baví, a nejsem stresován 
+   výplatní páskou.
+}
+\declaration {      % Use main language here
+   Prohlašuji, že jsem předloženou práci vypracoval
+   samostatně a že jsem uvedl veškeré použité informační zdroje v~souladu
+   s~Metodickým pokynem o~dodržování etických principů při přípravě
+   vysokoškolských závěrečných prací.
+
+   V Praze dne 13. 13. 2013 % !!! Attention, you have to change this item.
+   \signature % makes dots
+}
+
+%%%%% <--   % The place for your own macros is here.
+
+%\draft     % Uncomment this if the version of your document is working only.
+%\linespacing=1.7  % uncomment this if you need more spaces between lines
+                   % Warning: this works only when \draft is activated!
+%\savetoner        % Turns off the lightBlue backround of tables and
+                   % verbatims, only for \draft version.
+%\blackwhite       % Use this if you need really Black+White thesis.
+%\onesideprinting  % Use this if you really don't use duplex printing. 
+
+\makefront  % Mandatory command. Makes title page, acknowledgment, contents etc.
+
+\input uvod    % Files where the source of the document is prepared.
+\input popis   % Full name is: uvod.tex, popis.tex, the suffix can be omitted.
+\input prilohy
+
+\bye

@@ -1,0 +1,13 @@
+= CTUstyle3: Macros for student's theses at CTU in Prague, using OpTeX
+
+This is version of CTUstyle (see http://petr.olsak.net/ctustyle-e.html)
+for usage in OpTeX. It is derived from CTUstyle2 (new design).
+
+This package can serve as an example of OpTeX's macro package.
+
+See ctustyle-doc.pdf for information of how to use CTUstyle 
+(sorry, this is in Czech language only, only abstract is in English).
+
+You can see TUGboat article too https://www.tug.org/TUGboat/tb36-2/tb113olsak.pdf
+
+TODO: \slides with CTUstyle design
