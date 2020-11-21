@@ -531,6 +531,7 @@
   \_firstnoindent
 }
 
+\_let\.printsecc=\_printsecc
 \_def\_printsecc#1{\_par \_abovetitle{\_goodbreak} 
   \_smallskip\_medskip\_vskip.5\_parskip
   \.begitemstest\secc
@@ -653,6 +654,7 @@
 %%% Blue verbatim
 
 \everytt={\typosize[10.5/13.6]}
+\_let\.printverblineori=\_printverbline
 \_def\_printverbline#1{\penalty \_ttpenalty \noindent 
    \rlap{\vbox to0pt{\vss\liBlue 
          \hrule width\hsize height10pt depth4pt \kern-4pt}}%
@@ -748,6 +750,7 @@
 
 \_def\.normalitem{\Blue{\.bf\_thefontsize[30].\_kern-2pt}\Black\_enspace}
 \_defaultitem={\.normalitem}
+\_sdef{_item:X}{\_raise.1ex\_hbox{\Blue\.bf\_thefontsize[60].\_kern-4pt}\_enspace}
 \_sdef{_item:x}{\_raise.4ex\_hbox{\Blue\.bf\_thefontsize[17].\Black} }
 \_sdef{_item:n}{\_the\_itemnum.\_kern.25em }
 \_addto\_begitems{\_vskip.5\_parskip \_parskip=0pt\_relax}
@@ -766,6 +769,121 @@
 }
 \_addto\_bibskip{\_ifnum\_bibnum>0 \_vskip-\_parskip \_fi}
 
+
+%%% Slides:
+
+\_def\slides{\_par
+  \_def\_fontfam[##1]{}
+  \_let\_onlyrgb=\_relax
+  \_slides
+
+  \_hoffset=12mm
+  \_addto\wideformat{\_hoffset=12mm }
+  \_everypar={}
+  \_pgbackground={\hbox to\_pdfpagewidth{\.logobox\_hss\.counterslide}}
+  \_font\.bigdotfont=ec-lmssbx10 at80pt
+
+  \_pdfximage width1.62cm {ctulogo-new.pdf}\_mathchardef\.logopic=\_pdflastximage
+
+  \_fnotenumpages
+  \_def \_printfnotemark {\_ifcase 0\_fnotenum\_or
+    \*\or\*\*\or\*\*\*\or$^\_mathbox{†}$\or$^\_mathbox{‡}$\or$^\_mathbox{††}$\_fi}
+  \_def\_textindent##1{\_hskip20pt\_llap{##1\_enspace}\_ignorespaces}
+
+  \_sdef{_item:X}{\_raise.1ex\_hbox{\Blue\.bigdotfont.\_kern-4pt}\_enspace}
+  \_sdef{_item:x}{\_raise.4ex\_hbox{\Blue\.bf\_thefontsize[40].\Black} }
+
+  \.Technika \_rm
+  \_def\_titfont{\_typosize[30/39]\_bf\Blue}
+  \_def\_subtitfont{\_typosize[20/30]\_bf\Blue}
+  \_def\_secfont{\_typoscale[\_magstep2/\_magstep2]\_bf\Blue}
+  \_def\_seccfont{\_typosize[20/25]\_bf\Blue}
+  \_famvardef\_ttfont{\_setfontsize{mag1.1}\_tt}
+
+  \_public \rm \bf \it \bi ;
+
+  \_fontdef\_smallbf{\_setfontsize{at10pt}\_bf}
+
+  \_def\_printtit ##1{\_vglue 2\_titskip
+     \_xdef\.titpage{\_the\_pageno}%
+     {\_titfont \_noindent \_scantextokens{##1}\_par}%
+     \_nobreak\_medskip
+  }
+  \_eoldef\_subtit##1{\_vskip0pt{\_subtitfont ##1\_nbpar}}
+  \_def\.titpage{0}
+
+  \_let\_printsecc=\.printseccslides
+  \_let\_urlborder=\_undefined
+  \_let\_pgborder=\_undefined
+
+  \_hyperlinks\Blue\Blue
+
+  \_footline={}
+  \_everytt={\_typosize[12/15]\_tt \_advance\_hsize by 10mm}
+  \_let\_printverbline=\.printverblineori
+
+  \_protected\_def \LaTeX{\_tmpdim=.42ex L\_kern-.2em \_kern \_slantcorr % slant correction
+     \_raise \_tmpdim \_hbox{\_thefontscale[710]A}%
+     \_kern-.1em \_kern-\_slantcorr \_TeX}
+
+  \_def\.thispage{0}
+  \.prepslidepages
+  \_let\_endslides=\.endslides
+}
+
+\_def\.counterslide{%
+  \_ifnum\_slidelayer=0 \_slidelayer=1 \_fi
+  \_ifnum\_pageno>\.thispage
+     \_xdef\.thispage{\_the\_pageno}\_xdef\.maxlayer{\_cs{_p:\.thispage}}\_fi
+  \_immediate\_wref\_sdef{{_p:\_the\_pageno}{\_the\_slidelayer}}%
+  \_sxdef{_p:\_the\_pageno}{\_the\_slidelayer}%
+  \_vtop{\_baselineskip=16pt \_null\.slideslist}%
+}
+\_def\.prepslidepages{\_openref\_def\.slideslist{}%
+  \_if?\_lastpage \_else
+     \_tmpnum=0
+     \_fornum 1..\_lastpage \_do{%
+         \_advance\_tmpnum by0\_cs{_p:##1}\_edef\.tmp{\_the\_tmpnum}%
+         \_addto\.slideslist{\.slidepage{##1}}%
+         \_ea\_addto\_ea\.slideslist\_ea{\_ea{\.tmp}}%
+         }%
+  \_fi
+}
+\_def\.slidepage#1#2{%
+  \_hbox{\LightGrey \_ifnum\_pageno=#1 \.printpagenum \Blue \_fi \.pagerectangle{#2}}
+}
+\_def\.printpagenum{%
+  \_raise2.4pt\_llap{\_smallbf\_the\_pageno \_ifnum\_slidelayer=0\.maxlayer\_else+\_fi}%
+}
+\_def\.pagerectangle#1{\_kern-4pt\_let\Blue=\_relax
+\_ilink[pg:#1]{\.bigdotfont.}\_kern-4pt}%
+
+\_def\.endslides{\_vfil\_break \_decr\_pageno \_edef\_lastpage{\_folio}
+   \_let\.slideslistA=\.slideslist \.prepslidepages
+   \_ifx\.slideslistA\.slideslist \_else \_advance \_unresolvedrefs by1 \_fi
+   \_byehook \_end
+}
+\_def\.logobox{\_vbox to0pt{
+  \_hbox{{\Blue\vrule width12pt height46pt}\_kern12pt
+        \_pdfrefximage\.logopic
+        \_ifnum\.titpage=\_the\_pageno\_relax \.uniname \_fi}
+  \_ifnum\.titpage=\_the\_pageno\_relax \_kern-1pt{\Blue \_hrule height13.5cm width12pt}\_fi
+  \_vss
+}}
+\_def\.uniname{\_kern7pt\_typosize[10/11.3]\_bf
+   \_vbox{\_hsize=90pt\_leftskip=0pt \_rightskip=0pt minus10pt\_def\nl{\_hfil\_break}
+      \_mtext{ctu}\_par\_kern.5pt}%
+   \_if^\_the\faculty^\_else \_kern15pt{\_bf\_thefontsize[35]\Blue\.printfaculty}\_kern7pt
+   \_vbox{\_hbox{\_mtext{\_the\faculty}}
+         \_if^\_the\department^\_else\_hbox{\_the\department}\_fi}\_fi
+}
+\_def\.printseccslides#1{\_par
+    \_abovetitle{\_penalty-400}\_medskip
+   {\_seccfont \_noindent \_leftskip=0pt plus1fill \_rightskip=\_leftskip #1\_nbpar}%
+   \_nobreak \_belowtitle{\_smallskip}%
+}
+
+
 %%% Last thinks:
 
 \_def\abbrv[#1]{\_par \_noindent\_llap{#1\_quad}\_ignorespaces}
@@ -774,11 +892,11 @@
 \_def\nextoddpage{\_vfil\_supereject
    \_ifodd\_pageno \_else \_shipout\_null \_advancepageno \_fi}
 
+\_let\urllink=\_ulink
+
 \_shortcitations
 \_def\dprime{"}
 \_activettchar"
-
-\_let\urllink=\_ulink
 
 \_endnamespace % ctustyle
 \_endcode

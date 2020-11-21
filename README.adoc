@@ -12,4 +12,4 @@ See ctustyle-doc.pdf for information of how to use CTUstyle
 
 You can see TUGboat article too https://www.tug.org/TUGboat/tb36-2/tb113olsak.pdf
 
-TODO: \slides with CTUstyle design
+For using \slides with CTUstyle design, see slides.pdf file.
