@@ -148,8 +148,8 @@ int main(); // This is a program in C
 }
 \endtt
 
-Note that local declarations can be inserted afeter `\begtt`, the
-`\hisyntax` declaration is shown here.
+Note that local declarations can be inserted after `\begtt`,\nl
+the `\hisyntax` declaration is used in the example here.
 
 \pg; %------------------------------------------------------------------
 
@@ -160,8 +160,8 @@ Note that local declarations can be inserted afeter `\begtt`, the
 
 \secc What to do?
 
-* If you need to partially uncover the multi-line verbatim then you
-   can use:
+* If you need to partially uncover the multi-line verbatim\nl
+  then you can use:
 
 \begtt \adef/{\bslash}
 \begtt
@@ -189,7 +189,7 @@ Note that local declarations can be inserted afeter `\begtt`, the
 * The page with `\layers...\endlayers` pair is repeated $n$-times.
 
 * You can use `\pshow` $k$ inside `\layers...\endlayers` environment.\nl
-  This macro means partially show. It prints the following text to the end
+  This macro means {\em partially show}. It prints the following text to the end
   of current group:
 
 \begitems
@@ -207,7 +207,7 @@ Note that local declarations can be inserted afeter `\begtt`, the
 
 \pg; %------------------------------------------------------------------
 
-\sec An example of `\pshow` usage
+\sec Example of `\pshow` usage
 
 \setbox0=\vbox{
 \begtt
@@ -235,6 +235,7 @@ That is great!
 }
 \puttext 100mm -120mm {\box0}
 
+\bgroup
 \hsize=8cm
 
 \secc Ideas in special order
@@ -244,19 +245,24 @@ That is great!
 * {\pshow3 Second idea}
 * {\pshow2 Third idea}
 \endlayers
+\egroup
 \pg+
 
+\bgroup
 \hsize=8cm 
-
 \secc A formula
+\egroup
 
 \layers 4
+\bgroup
 Consider \hsize=8cm
 $$ 
   E = {\pshow2 m}{\pshow3 c^2}
 $$
+\egroup
 \endlayers
 That is great!
+
 
 \pg; %------------------------------------------------------------------
 

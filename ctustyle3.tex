@@ -778,7 +778,7 @@
   \_slides
 
   \_hoffset=12mm
-  \_addto\wideformat{\_hoffset=12mm }
+  \_addto\wideformat{\_hoffset=12mm \_advance\_hsize by4mm }
   \_everypar={}
   \_pgbackground={\hbox to\_pdfpagewidth{\.logobox\_hss\.counterslide}}
   \_font\.bigdotfont=ec-lmssbx10 at80pt
@@ -791,7 +791,8 @@
   \_def\_textindent##1{\_hskip20pt\_llap{##1\_enspace}\_ignorespaces}
 
   \_sdef{_item:X}{\_raise.1ex\_hbox{\Blue\.bigdotfont.\_kern-4pt}\_enspace}
-  \_sdef{_item:x}{\_raise.4ex\_hbox{\Blue\.bf\_thefontsize[40].\Black} }
+
+\_sdef{_item:x}{\_raise.3ex\_hbox{\Blue\_fullrectangle{.4em}\Black}\_kern5pt}
 
   \.Technika \_rm
   \_def\_titfont{\_typosize[30/39]\_bf\Blue}
@@ -799,10 +800,10 @@
   \_def\_secfont{\_typoscale[\_magstep2/\_magstep2]\_bf\Blue}
   \_def\_seccfont{\_typosize[20/25]\_bf\Blue}
   \_famvardef\_ttfont{\_setfontsize{mag1.1}\_tt}
-
   \_public \rm \bf \it \bi ;
-
   \_fontdef\_smallbf{\_setfontsize{at10pt}\_bf}
+
+  \_doloadmath \_loadmath {[FiraMath-Regular]}
 
   \_def\_printtit ##1{\_vglue 2\_titskip
      \_xdef\.titpage{\_the\_pageno}%
@@ -856,7 +857,7 @@
   \_raise2.4pt\_llap{\_smallbf\_the\_pageno \_ifnum\_slidelayer=0\.maxlayer\_else+\_fi}%
 }
 \_def\.pagerectangle#1{\_kern-4pt\_let\Blue=\_relax
-\_ilink[pg:#1]{\.bigdotfont.}\_kern-4pt}%
+\_ilink[pg:#1]{\.bigdotfont.}\_kern-2pt}%
 
 \_def\.endslides{\_vfil\_break \_decr\_pageno \_edef\_lastpage{\_folio}
    \_let\.slideslistA=\.slideslist \.prepslidepages
