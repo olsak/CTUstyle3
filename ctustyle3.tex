@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Aug.2020}
+\_def\ctustyleversion{Dec.2020}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -159,6 +159,7 @@
 \_fontfam[Technika]
 \_fontfam[LMfonts]
 
+\_let\bf=\_undefined \_let\bi=\_undefined % newly defined variant selectors
 \_famvardef \bf {\.Technikascaled\_bf}
                 \_addto\bf {\_inmath{\_bsansvariables \_sansgreek \_bsansdigits}}
 \_famvardef \bi {\.Technikascaled\_bi} 
@@ -799,7 +800,7 @@
   \_def\_subtitfont{\_typosize[20/30]\_bf\Blue}
   \_def\_secfont{\_typoscale[\_magstep2/\_magstep2]\_bf\Blue}
   \_def\_seccfont{\_typosize[20/25]\_bf\Blue}
-  \_famvardef\_ttfont{\_setfontsize{mag1.1}\_tt}
+  \_let\_ttfont=\_undefined \_famvardef\_ttfont{\_setfontsize{mag1.1}\_tt}
   \_public \rm \bf \it \bi ;
   \_fontdef\_smallbf{\_setfontsize{at10pt}\_bf}
 
@@ -904,4 +905,5 @@
 
 %%% Versions:
 
-beta(a) Sep.2013  First version CTUstyle3 for OpTeX released
+beta(a) Sep.2020  First version CTUstyle3 for OpTeX released
+beta(b) Dec.2020  Slides added, little corrections
