@@ -793,10 +793,10 @@
 
   \_sdef{_item:X}{\_raise.1ex\_hbox{\Blue\.bigdotfont.\_kern-4pt}\_enspace}
 
-\_sdef{_item:x}{\_raise.3ex\_hbox{\Blue\_fullrectangle{.4em}\Black}\_kern5pt}
+  \_sdef{_item:x}{\_raise.3ex\_hbox{\Blue\_fullrectangle{.4em}\Black}\_kern5pt}
 
   \.Technika \_rm
-  \_def\_titfont{\_typosize[30/39]\_bf\Blue}
+  \_def\_titfont{\_typosize[30/39]\_bf}
   \_def\_subtitfont{\_typosize[20/30]\_bf\Blue}
   \_def\_secfont{\_typoscale[\_magstep2/\_magstep2]\_bf\Blue}
   \_def\_seccfont{\_typosize[20/25]\_bf\Blue}
@@ -808,7 +808,12 @@
 
   \_def\_printtit ##1{\_vglue 2\_titskip
      \_xdef\.titpage{\_the\_pageno}%
-     {\_titfont \_noindent \_scantextokens{##1}\_par}%
+     \_setbox2=\_vbox{{\_titfont \_noindent \_scantextokens{##1}\_par}}%
+     {\_noindent \LightGrey
+                 \_puttext 3pt -2pt{\_copy2}%
+                 \_puttext 2pt -1.5pt{\_copy2}%
+                 \_puttext 1pt -1pt{\_copy2}}%
+      {\Blue \_box2 }\_par
      \_nobreak\_medskip
   }
   \_eoldef\_subtit##1{\_vskip0pt{\_subtitfont ##1\_nbpar}}
@@ -907,3 +912,4 @@
 
 beta(a) Sep.2020  First version CTUstyle3 for OpTeX released
 beta(b) Dec.2020  Slides added, little corrections
+beta(c) Dec.2020  Shadowed title in slides
