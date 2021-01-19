@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Dec.2020}
+\_def\ctustyleversion{Jan.2020}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -718,7 +718,7 @@
    \_setbox0=\_hbox{#1}\_ifdim\_wd0>\.maxglosindent \.maxglosindent=\_wd0 \_fi
    \_noindent \_hangindent=\.glosindent \_advance\_hangindent by2em
       \_hbox to\.glosindent{\.makegloslink{#1}\_dest[glos:\.tmp]#1\_hss}%
-      \_hbox to2em{\_hss\.noramlitem\_hss}#2\_par}
+      \_hbox to2em{\_hss\.normalitem\_hss}#2\_par}
 
 \_def\.makegloslink#1{\_edef\.tmpb{\_detokenize{#1}}%
    \_def\.tmp{}\_ea\.makegloslinkA\.tmpb\_relax}
@@ -913,3 +913,4 @@
 beta(a) Sep.2020  First version CTUstyle3 for OpTeX released
 beta(b) Dec.2020  Slides added, little corrections
 beta(c) Dec.2020  Shadowed title in slides
+beta(d) Jan.2020  \.normalitem in \.printglos, typo corrected
