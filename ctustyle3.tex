@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Jan.2020}
+\_def\ctustyleversion{Jan.2020 beta(e)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -610,15 +610,14 @@
 
 \_everycaptiont={%
     \_ifx\.clabeltext\_undefined \_else
-      \_toks0=\_ea{\.clabeltext}%
       \_ea\_ifx\_tmpa t\_edef\.tmp{\_noexpand\_wref\_noexpand\.Xtab
-                       {{\_lastlabel}{\_thetnum}{\_the\_toks0}}}\.tmp
+                       {{\_lastlabel}{\_thetnum}{\.clabeltext}}}\.tmp
       \_else  \_edef\.tmp{\_noexpand\_wref\_noexpand\.Xfig
-                       {{\_lastlabel}{\_thefnum}{\_the\_toks0}}}\.tmp
+                       {{\_lastlabel}{\_thefnum}{\.clabeltext}}}\.tmp
    \_fi\_fi
    \_global\_let\_clabeltext=\_undefined
    \_vskip-\_parskip
-}  
+}
 \_everycaptionf=\_everycaptiont
 
 \_def \_printcaptiont {\_typosize[10/12]
@@ -628,7 +627,7 @@
 \_let \_printcaptionf = \_printcaptiont % caption of figures = caption of tables
 
 
-\_def\clabel[#1]#2{\_gdef\.clabeltext{#2}\_label[#1]}
+\_def\clabel[#1]#2{\_xdef\.clabeltext{\_detokenize{#2}}\_label[#1]}
 
 \_def\.tofline#1#2#3{{\_leftskip=\_iindent \_rightskip=\_iindent plus1em
    \_noindent\_llap{\.bf\_ref[#1]\_enspace}%
@@ -914,3 +913,4 @@ beta(a) Sep.2020  First version CTUstyle3 for OpTeX released
 beta(b) Dec.2020  Slides added, little corrections
 beta(c) Dec.2020  Shadowed title in slides
 beta(d) Jan.2020  \.normalitem in \.printglos, typo corrected
+beta(e) Jan.2020  \.clabeltext unexpanded (moe robust)
