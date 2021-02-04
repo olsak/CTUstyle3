@@ -578,7 +578,7 @@
   \_def \_savedtitle {#1}% saved to .ref file 
   \_ifx\chap\.nochap \_else \nextoddpage \_global\_let\chap=\.nochap \_fi
   \_secnum=0 \_seccnum=0 \_relax
-  \_edef\_therefnum{\.appletter}
+  \_xdef\_therefnum{\.appletter}\_global\_let\_thechapnum=\_therefnum
   \_gdef\_thesecnum{\.appletter.\_the\_secnum}
   \_gdef\_theseccnum{\.appletter.\_the\_secnum.\_the\_seccnum}
   \.printapp{#1}
