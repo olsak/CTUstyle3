@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Jan.2020 beta(e)}
+\_def\ctustyleversion{Feb.2021 beta(f)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -645,11 +645,11 @@
    {\bf #2 #1\_istoksempty\_opt\_iffalse \_space \_the\_opt \_fi.}\_space
    \_ignorespaces
 }
-\_def\_theAnum {\_the\_chapnum.\_the\_counterA}
-\_def\_theBnum {\_the\_chapnum.\_the\_counterB}
-\_def\_theCnum {\_the\_chapnum.\_the\_counterC}
-\_def\_theDnum {\_the\_chapnum.\_the\_counterD}
-\_def\_theEnum {\_the\_chapnum.\_the\_counterE}
+\_def\_theAnum {\_thechapnum.\_the\_counterA}
+\_def\_theBnum {\_thechapnum.\_the\_counterB}
+\_def\_theCnum {\_thechapnum.\_the\_counterC}
+\_def\_theDnum {\_thechapnum.\_the\_counterD}
+\_def\_theEnum {\_thechapnum.\_the\_counterE}
 
 %%% Blue verbatim
 
@@ -912,5 +912,6 @@
 beta(a) Sep.2020  First version CTUstyle3 for OpTeX released
 beta(b) Dec.2020  Slides added, little corrections
 beta(c) Dec.2020  Shadowed title in slides
-beta(d) Jan.2020  \.normalitem in \.printglos, typo corrected
-beta(e) Jan.2020  \.clabeltext unexpanded (moe robust)
+beta(d) Jan.2021  \.normalitem in \.printglos, typo corrected
+beta(e) Jan.2021  \.clabeltext unexpanded (moe robust)
+beta(f) Feb.2021  \_thechapnum in appendixes, bug fix.
