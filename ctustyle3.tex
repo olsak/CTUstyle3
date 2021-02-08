@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Feb.2021 beta(f)}
+\_def\ctustyleversion{Feb.2021 beta(g)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -246,13 +246,17 @@
 %%% PDF info data
 
 \_def\.pdfinfodata{%
-    \_pdfunidef\.tmpb{\_the\author}\_edef\.tmp{/Author(\.tmpb) /CreationDate(\_the\date) }%
-    \_pdfunidef\.tmpb{\_the\title}%
-    \_edef\.tmp{\.tmp /Creator(TeX + CTUstyle) /Title(\.tmpb) }%
-    \_pdfunidef\.tmpb{\_ifcase\.worktypenum
-             \_the\workname \_or \_mtext{B}\_or \_mtext{M}\_or \_mtext{D}\_fi}%
-    \_edef\.tmp{\.tmp /Subject(\.tmpb) /Keywords(\_the\keywordsEN)}%
-    \_pdfinfo{\.tmp}%
+   \_def\.infolist{}%
+   \_def\.addinfo##1##2{\_pdfunidef\.tmpb{##2}\_edef\.infolist{\.infolist ##1\.tmpb}}%
+   \_ifx\_hexprint\_undefined
+      \_def\.addinfo##1##2{\_pdfunidef\.tmpb{##2}\_edef\.infolist{\.infolist ##1(\.tmpb)}}%
+   \_fi
+   \.addinfo{/Author}{\_the\author}%
+   \.addinfo{/Creator(OpTeX + CTUstyle)/Title}{\_the\title}%
+   \.addinfo{/Subject}{\_ifcase\.worktypenum
+            \_the\workname \_or \_mtext{B}\_or \_mtext{M}\_or \_mtext{D}\_fi}%
+   \.addinfo{/Keywords}{\_the\keywordsEN}%
+   \_pdfinfo{\.infolist}%
 }
 \_addto\makefront{\.pdfinfodata}
 
@@ -915,3 +919,4 @@ beta(c) Dec.2020  Shadowed title in slides
 beta(d) Jan.2021  \.normalitem in \.printglos, typo corrected
 beta(e) Jan.2021  \.clabeltext unexpanded (moe robust)
 beta(f) Feb.2021  \_thechapnum in appendixes, bug fix.
+beta(g) Feb.2021  \.pdfinfodata re-implemented
