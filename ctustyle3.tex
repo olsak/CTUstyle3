@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Feb.2021 beta(g)}
+\_def\ctustyleversion{Apr.2021 beta(h)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -186,7 +186,11 @@
    \_let\_normalmath=\_boldmath
    \.bf 
    \_let \.Technikascaled =\.Technika
+   \_let\LaTeX = \.bLaTeX
 }
+\_protected\_def\.bLaTeX{\_tmpdim=.42ex L\_kern-.18em \_kern \_slantcorr
+  \_raise \_tmpdim \_hbox{\_thefontscale[710]A}%
+  \_kern-.06em \_kern-\_slantcorr \_TeX}
 
 \_def\.chapfont{\_scalemain\_typoscale[\_magstep3/\_magstep3]\.boldify}
 \_def\.secfont{\_scalemain\_typoscale[\_magstep2/\_magstep2]\.boldify}
@@ -920,3 +924,4 @@ beta(d) Jan.2021  \.normalitem in \.printglos, typo corrected
 beta(e) Jan.2021  \.clabeltext unexpanded (moe robust)
 beta(f) Feb.2021  \_thechapnum in appendixes, bug fix.
 beta(g) Feb.2021  \.pdfinfodata re-implemented
+beta(h) Apr.2021  \.bLaTeX logo added
