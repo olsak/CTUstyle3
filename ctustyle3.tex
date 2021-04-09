@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Apr.2021 beta(h)}
+\_def\ctustyleversion{Apr.2021 beta(i)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -812,6 +812,16 @@
   \_fontdef\_smallbf{\_setfontsize{at10pt}\_bf}
 
   \_doloadmath \_loadmath {[FiraMath-Regular]}
+     \_addto\_normalmath{\_loadumathfamily 5 {xitsmath-regular}{} }
+     \_addto\_boldmath  {\_loadumathfamily 5 {xitsmath-bold}{} }
+     \_addto\frak{\_fam5 }\_addto\cal{\_fam5 }
+     \_normalmath
+     \_let\_bsansvariables=\_bfvariables
+     \_let\_bsansGreek=\_bfGreek
+     \_let\_bsansgreek=\_bfgreek
+     \_let\_bsansdigits=\_bfdigits
+     \_let\_bisansvariables=\_bivariables
+     \_let\_bisansgreek=\_bigreek
 
   \_def\_printtit ##1{\_vglue 2\_titskip
      \_xdef\.titpage{\_the\_pageno}%
@@ -925,3 +935,4 @@ beta(e) Jan.2021  \.clabeltext unexpanded (moe robust)
 beta(f) Feb.2021  \_thechapnum in appendixes, bug fix.
 beta(g) Feb.2021  \.pdfinfodata re-implemented
 beta(h) Apr.2021  \.bLaTeX logo added
+beta(i) Apr.2021  \slides: FiraMath corrections added
