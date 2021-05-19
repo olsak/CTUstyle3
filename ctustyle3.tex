@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Apr.2021 beta(i)}
+\_def\ctustyleversion{Apr.2021 beta(j)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -161,9 +161,9 @@
 
 \_let\bf=\_undefined \_let\bi=\_undefined % newly defined variant selectors
 \_famvardef \bf {\.Technikascaled\_bf}
-                \_addto\bf {\_inmath{\_bsansvariables \_sansgreek \_bsansdigits}}
+                \_addto\bf {\_inmath{\_bsansvariables \_bsansgreek \_bsansdigits}}
 \_famvardef \bi {\.Technikascaled\_bi} 
-                \_addto\bi {\_inmath{\_bisansvariables \_isansgreek \_bsansdigits}}
+                \_addto\bi {\_inmath{\_bisansvariables \_bisansgreek \_bsansdigits}}
 \_famvardef \ssr {\.Technikascaled\.book\_rm}
 \_famvardef \ssi {\.Technikascaled\.book\_it}
 \_famvardef \sc  {\.caps\_rm}
@@ -936,3 +936,4 @@ beta(f) Feb.2021  \_thechapnum in appendixes, bug fix.
 beta(g) Feb.2021  \.pdfinfodata re-implemented
 beta(h) Apr.2021  \.bLaTeX logo added
 beta(i) Apr.2021  \slides: FiraMath corrections added
+beta(j) May 2021  \bf, \bi in math mode corrected
