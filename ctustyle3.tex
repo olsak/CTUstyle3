@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Apr.2021 beta(j)}
+\_def\ctustyleversion{Jun.2021 beta(k)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -511,7 +511,7 @@
 
 %%% Chapter, section
 
-\_def\_printchap#1{\_vfil\_supereject \_vglue1cm
+\_def\_printchap#1{\_vfil\_supereject \.myvakat \_vglue1cm
   \_headline={\_hfil\.nextheadline}
   \_xdef\.headchap{\_ifnonum\_else\_thechapnum.\ \_fi#1}
   \_mark{}\_nobreak
@@ -595,7 +595,7 @@
 \_def\.nochap#1\par{\_message{CTUstyle WARNING: \_noexpand\chap inside
                            Appendices is ignored.}}
 
-\_def\.printapp#1{\_vfil\_supereject \_vglue1cm
+\_def\.printapp#1{\_vfil\_supereject \.myvakat \_vglue1cm
   \_headline={\_hfil\.nextheadline}
   \_xdef\.headchap{\.appletter\ #1}
   \_mark{}\_nobreak
@@ -777,7 +777,6 @@
 }
 \_addto\_bibskip{\_ifnum\_bibnum>0 \_vskip-\_parskip \_fi}
 
-
 %%% Slides:
 
 \_def\slides{\_par
@@ -913,8 +912,10 @@
 \_def\abbrv[#1]{\_par \_noindent\_llap{#1\_quad}\_ignorespaces}
 
 \_def\urlnote#1{\_fnote{\_url{#1}}}
-\_def\nextoddpage{\_vfil\_supereject
-   \_ifodd\_pageno \_else \_shipout\_null \_advancepageno \_fi}
+\_def\nextoddpage{\_vfil\_supereject \.tryvakat}
+\_def\.tryvakat{\_ifodd\_pageno \_else \_shipout\_null \_advancepageno \_fi}
+\_let\.myvakat=\_relax  % by default, chapters 2, 3, ... can start at left pages
+\_def\oddchapters{\_let\.myvakat=\.tryvakat} % all chapters start at right pages
 
 \_let\urllink=\_ulink
 
@@ -937,3 +938,4 @@ beta(g) Feb.2021  \.pdfinfodata re-implemented
 beta(h) Apr.2021  \.bLaTeX logo added
 beta(i) Apr.2021  \slides: FiraMath corrections added
 beta(j) May 2021  \bf, \bi in math mode corrected
+beta(k) Jun.2021  \oddchapters added

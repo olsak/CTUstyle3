@@ -42,7 +42,9 @@ Je doporučeno číslované kapitoly zahájit úvodem, pak další kapitoly podl
 potřeby práce a poslední kapitola by měla být označena jako závěr. 
 Následně musí být zařazen seznam literatury
 (nečíslovaná kapitola) a pak povinná příloha A se zadáním práce 
-(u~bakalářské a diplomové práce) a následně případné další přílohy. Mezi těmito
+(pokud není zadaní práce povinně zařazeno před titulní
+list nebo těsně za titulní list, viz sekci~\ref[ozadani]).
+Poté následují případné další přílohy. Mezi těmito
 dalšími přílohami se velmi doporučuje zařadit seznam zkratek a symbolů, jako
 zde v příloze~\ref[zkratky].
 
@@ -59,15 +61,6 @@ Toto slovo se generuje automaticky, příkaz zapisujte bez parametru.
 Způsob tvorby seznamu literatury a způsob citace na literaturu v~textu je
 podrobněji vyložen v~sekci~\ref[citlit].
 
-
-\secc Zadání práce
-
-Každá bakalářská nebo diplomová závěrečná práce musí obsahovat úplný text zadání práce. 
-Doporučuji jej zařadit do přílohy~\ref[zadani]~(jako v~tomto dokumentu)
-a označit ji názvem \uv{Zadání práce} (anglicky Specification).
-Někdy je v požadavcích uvedeno vložit zadání práce hned za titulní stranu.
-Ačkoli to z typografického pohledu nedoporučuji, \ctustyle{} to umožňuje.
-Podrobnější komentář k této problematice je v~sekci~\ref[ozadani]
 
 
 \sec Obrázky, tabulky, listingy a další
@@ -447,77 +440,53 @@ ancientním \TeX{}ovým sekvencím typu "Ol\v{s}\'ak".
 \label[ozadani]
 \sec Jak vložit zadání práce
 
-Předpisy někdy požadují vložit přílohu A \uv{Zadání práce} (v případě
-bakalářky a diplomky) do jednoho svázaného výtisku jako originál (s podpisy
-a razítkem) a do dalších výtisků resp. do PDF vložit kopii tohoto formuláře.
-Doporučuji tedy tento formulář oskenovat (navíc se typicky vyžaduje zakrýt
-podpisy) a oříznout naskenovanému obrázku bílé okraje co nejvíce to jde. To
-lze udělat například v programu Gimp. Tím vznikne obrázek například
-"zadani.jpg". Přílohy pak zahajte takovým kódem:
+Fakulty mají své předpisy, jak a kam vložit zadání bakalářské nebo diplomové
+práce. Předpokládejme, že máte zadání v samostatném PDF dokumentu, např. v souboru
+"zadani.pdf".
+
+Pokud máte mít zadání práce vloženo jako první nečíslovaný list práce ještě
+před titulní stránkou, můžete před "\makefront" vložit:
+
+\begtt
+{\nopagenumbers
+ \vbox to0pt{\vskip-25mm\centerline{\inspic zadani.pdf }\vss}
+ \nextoddpage}
+\endtt
+
+Pokud máte mít zadání práce jako druhý list hned za titulním listem,
+vložte před "\makefront" následující deklaraci:
+
+\begtt
+\specification {%
+   \vbox to0pt{\vskip-25mm\centerline{\inspic zadani.pdf }\vss}
+}
+\endtt
+
+Pokud můžete zadání práce vložit až do přílohy, je možné použít třeba
 
 \begtt
 \app Zadání práce
-
-\picw=\hsize % obrázek na šířku sazby
-\cinspic zadani.jpg
+\vbox to0pt{\vskip-25mm\centerline{\inspic zadani.pdf }\vss}
 \nextoddpage
 
 \app Další příloha
 \endtt
 
-Makro \ctustyle{} zahajuje vždy první přílohu (tj. přílohu A) na liché
-(pravé) straně. Za konec poslední kapitoly může tedy kvůli tomu vložit
-prázdnou stranu (neboli vakát). Na první straně přílohy se tedy objeví
-nadpis: \uv{Příloha A / Zadání práce} graficky upravený podle \ctustyle{}.
-Pod ním bude oskenovaný formulář se zadáním práce.
-Pak příkazem "\nextoddpage" dáváte najevo, že další příloha bude začínat
-znovu na pravé stránce, takže vlevo se vloží vakát. Tím pádem bude příloha~A
-zaujímat při duplexním tisku kompletní jeden list papíru v~závěrečné práci.
 
-Nyní stačí tento list papíru v jednom výtisku zaměnit za originální formulář a nechat
-svázat. Originál tedy nebude mít nadpis přílohy~A v jednotném grafickém stylu, ale
-nemůžeme chtít všechno. Kopie už budou mít jednotný grafický styl.
-
-Pokud předpisy bezpodmínečně požadují vložit zadání práce jako druhý list
-hned za titulní stranu, je možné využít deklarační příkaz "\specification",
-který zařadíte mezi ostatní deklarační příkazy a napíšete tam:
+Máte-li dvě varianty zadání (např. ve dvou jazycích) a chcete je dát těsně
+za titulní list, můžete psát:
 
 \begtt
-\specification {\picw=\hsize \cinspic zadani.jpg }
-\endtt
-
-Tato deklarace způsobí, že sken zadání (bez dalších textů) se umístí na
-stranu třetí (strana druhá je typicky vakát za titulem, pokud není
-deklarován "\pagetwo"). Strana čtvrtá se stane dalším vakátem a od strany páté
-se zobrazí poděkování/prohlášení atd. Navíc na stranu třetí bude odkazovat
-strukturovaný obsah PDF prohlížeče názvem Zadání, resp. Specification.
-
-Máte-li dvě varianty zadání (např. ve dvou jazycích), je možné psát:
-
-\begtt
-\specification {\picw=\hsize \cinspic specifi-en.jpg 
-                \vfil\break  \cinspic specifi-cz.jpg }
-\endtt
-
-V tomto příkladě se "specifi-en.jpg" zobrazí na straně třetí a "specifi-cz.jpg" na
-straně čtvrté. A stejně jako prve od strany páté pokračuje 
-poděkování/prohlášení atd.
-
-Na některých fakultách předpisy vyžadují vložit zadání práce úplně jako
-první list práce, ještě před titulní stranu. Ponechme stranou, že to
-z typografického pohledu výrazně znehodnotí úvodní listy práce, a ukažme si,
-co lze při takovém požadavku dělat. Těsně před "\makefront" vložte:
-
-\begtt
-\bgroup
-   \nopagenumbers \pageno=-100 % dvě strany tohoto listu nečíslovat
-   \picw=\hsize      % šířka zadání (případně opravte)
-   \vglue-1mm        % výškové umístění zadání (případně upravte)
-   \cinspic zadani.pdf
+\specification {
+   \vbox to0pt{\vskip-25mm\centerline{\inspic specifi.pdf }\vss}
    \vfil\break
-   \null\vfil\break  % vakát
-\egroup
+   \vbox to0pt{\vskip-25mm\centerline{\inspic zadani.pdf }\vss}
+}
 \endtt
+
+V tomto příkladě se "specifi.pdf" zobrazí na straně třetí a "zadani.pdf" na
+straně čtvrté. A stejně jako prve od strany páté pokračuje
+poděkování/prohlášení atd.
 
 
 \sec Pracovní verze dokumentu
@@ -583,14 +552,24 @@ Příkaz "\savetoner" umožní vypnout (provizorně při "\draft") modré podkla
 pod listingy a tabulkami. Ve finálním dokumentu (po vypnutí "\draft") 
 jsou podklady vždy podbarveny.
 
+\sec Finální verze dokumentu
+
+Implicitně se předpokládá tisk na duplexové tiskárně.
+Na pravé (liché) straně rozevřené \uv{knihy} zahajuje vždy kapitola 1 a
+příloha A. Vlevo od nich pak může být kompletně prázdná strana (tzv. vakát).
+Chcete-li zahájit každou kapitolu a každou přílohu na pravé straně
+(za cenu případného vakátu vlevo), použijte v záhalaví příkaz "\oddchapters"
+(to ale spíše nedoporučuji). Pokud chcete zahájit jen nějakou přílohu vpravo, použijte
+"\nextoddpage \app Moje další příloha".
+
+Pokud nechcete použít duplexní tisk a chcete mít každou stranu na
+zvláštním papíře, použijte příkaz "\onesideprinting", který přepne záhlaví do
+formy vhodné pro jednostranný tisk.
+
 Příkaz "\blackwhite" přepne modrou barvu na šedou. Chcete-li tisknout
 nakonec černobíle, je možná lepší použít tuto variantu dokumentu. Pro
 finálně vygenerované PDF (které není určeno k tisku) ovšem doporučuji 
 vrátit se k barvě.
-
-Implicitně se předpokládá tisk na duplexové tiskárně.
-Příkaz "\onesideprinting" přepne záhlaví do formy vhodné pro jednostranný
-tisk. 
 
 
 \sec Prezentace pro zpětný projektor
