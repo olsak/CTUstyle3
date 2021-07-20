@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Jun.2021 beta(k)}
+\_def\ctustyleversion{Jul.2021 beta(l)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -425,7 +425,8 @@
 \_newbox\.tocbox
 
 \_everytocline={\_advance\_rightskip by0pt plus1em}
-\_sdef{_tocl:1}#1#2#3{\_nofirst\_smallskip \.bf\_llaptoclink{#1}{#2}\_hfill\_pgn{#3}\_tocpar}
+\_sdef{_tocl:1}#1#2#3{\_nofirst\_smallskip
+   \.bf\_llaptoclink{#1}{#2}\_nobreak\_hfill\_pgn{#3}\_tocpar}
 
 \_def\.tocpages{   
    \_setbox\.tocbox=\_vbox{\.sethsizefront \_parskip=0pt \_iindent=7mm \_maketoc\_vfil}
@@ -939,3 +940,4 @@ beta(h) Apr.2021  \.bLaTeX logo added
 beta(i) Apr.2021  \slides: FiraMath corrections added
 beta(j) May 2021  \bf, \bi in math mode corrected
 beta(k) Jun.2021  \oddchapters added
+beta(l) Jul.2021  \_tocl:1 bug fixed (\_nobreak added)
