@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Jul.2021 beta(l)}
+\_def\ctustyleversion{Jul.2021 beta(m)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -624,7 +624,7 @@
       \_else  \_edef\.tmp{\_noexpand\_wref\_noexpand\.Xfig
                        {{\_lastlabel}{\_thefnum}{\.clabeltext}}}\.tmp
    \_fi\_fi
-   \_global\_let\_clabeltext=\_undefined
+   \_global\_let\.clabeltext=\_undefined
    \_vskip-\_parskip
 }
 \_everycaptionf=\_everycaptiont
@@ -941,3 +941,4 @@ beta(i) Apr.2021  \slides: FiraMath corrections added
 beta(j) May 2021  \bf, \bi in math mode corrected
 beta(k) Jun.2021  \oddchapters added
 beta(l) Jul.2021  \_tocl:1 bug fixed (\_nobreak added)
+beta(m) Aug.2021  \_clabeltext -> \.clabeltext, bug fixed
