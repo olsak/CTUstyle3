@@ -107,6 +107,11 @@ Místo příkazu "\midinsert" můžete použít "\topinsert". V~takovém přípa
 obrázek odpluje na horní část stránky vždy. Raději má vršek aktuální
 stránky, ale když to není možné, odpluje na stránku následující.
 
+Chcete-li dostat zmínku o obrázku do seznamu obrázků generovaném na začátku
+dokumentu, vložte za "\midinsert" (nebo za "\topinsert") 
+"\clabel[<lejblík>]{<popisek>}". Podrobněji je tato vlastnost popsána v
+sekci~\ref[aucislo].
+
 
 \secc Tabulky
 
@@ -153,7 +158,7 @@ Tabulky (podobně jako obrázky) je vhodné zapouzdřit do dvojice
 příkazů "\midinset" a "\endinsert" nebo "\topinsert" a "\endinsert".
 
 
-\secc Automaticky číslované objekty
+\secc[aucislo] Automaticky číslované objekty
 
 Jak je možné si všimnout, \ctustyle{} automaticky čísluje kapitoly, sekce,
 podsekce, dodatky, tabulky, obrázky a pokud uživatel použije "\eqmark", 
