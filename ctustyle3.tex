@@ -825,12 +825,12 @@
 
   \_def\_printtit ##1{\_vglue 2\_titskip
      \_xdef\.titpage{\_the\_pageno}%
-     \_setbox2=\_vbox{{\_titfont \_noindent \_scantextokens{##1}\_par}}%
-     {\_noindent \LightGrey
-                 \_puttext 3pt -2pt{\_copy2}%
+     \_setbox2=\_vbox{{\_titfont\LightGrey \_noindent \_scantextokens{##1}\_par}}%
+     \_setbox3=\_vbox{{\_titfont\Blue \_noindent \_scantextokens{##1}\_par}}%
+     {\_noindent \_puttext 3pt -2pt{\_copy2}%
                  \_puttext 2pt -1.5pt{\_copy2}%
-                 \_puttext 1pt -1pt{\_copy2}}%
-      {\Blue \_box2 }\_par
+                 \_puttext 1pt -1pt{\_box2}}%
+      \_box3 \_par
      \_nobreak\_medskip
   }
   \_eoldef\_subtit##1{\_vskip0pt{\_subtitfont ##1\_nbpar}}
