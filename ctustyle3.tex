@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Jul.2021 beta(m)}
+\_def\ctustyleversion{Jan.2022 beta(n)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -593,8 +593,8 @@
   \.printapp{#1}
   \_resetnonumnotoc
 }
-\_def\.nochap#1\par{\_message{CTUstyle WARNING: \_noexpand\chap inside
-                           Appendices is ignored.}}
+\_eoldef\.nochap#1{\_message{CTUstyle WARNING: \_noexpand\chap inside
+                             Appendices is ignored.}}
 
 \_def\.printapp#1{\_vfil\_supereject \.myvakat \_vglue1cm
   \_headline={\_hfil\.nextheadline}
@@ -942,3 +942,4 @@ beta(j) May 2021  \bf, \bi in math mode corrected
 beta(k) Jun.2021  \oddchapters added
 beta(l) Jul.2021  \_tocl:1 bug fixed (\_nobreak added)
 beta(m) Aug.2021  \_clabeltext -> \.clabeltext, bug fixed
+beta(n) Jan.2022  colors in slide-titles corrected, \.nochap defined by \eoldef
