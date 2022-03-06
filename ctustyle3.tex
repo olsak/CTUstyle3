@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Feb.2022 beta(o)}
+\_def\ctustyleversion{Mar.2022 beta(p)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -879,9 +879,9 @@
 \_def\.printpagenum{%
   \_raise2.4pt\_llap{\_smallbf\_the\_pageno \_ifnum\_slidelayer=0\.maxlayer\_else+\_fi}%
 }
-\_def\.pagerectangle#1{\_kern-4pt\_let\Blue=\_relax
-\_ilink[pg:#1]{\.bigdotfont.}\_kern-2pt}%
-
+\_def\.pagerectangle#1{\_kern-4pt\_let\Blue=\_relax \_let\_ilinkcolor=\_relax
+   \_ilink[pg:#1]{\.bigdotfont.}\_kern-2pt
+}
 \_def\.endslides{\_vfil\_break \_decr\_pageno \_edef\_lastpage{\_folio}
    \_let\.slideslistA=\.slideslist \.prepslidepages
    \_ifx\.slideslistA\.slideslist \_else \_advance \_unresolvedrefs by1 \_fi
@@ -944,3 +944,4 @@ beta(l) Jul.2021  \_tocl:1 bug fixed (\_nobreak added)
 beta(m) Aug.2021  \_clabeltext -> \.clabeltext, bug fixed
 beta(n) Jan.2022  colors in slide-titles corrected, \.nochap defined by \eoldef
 beta(o) Feb.2022  \.bigdotfont for slides in OTF variant
+beta(p) Mar.2022  colors of the slider in slides corrected, bug fix.
