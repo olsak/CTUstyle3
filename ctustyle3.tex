@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Mar.2022 beta(p)}
+\_def\ctustyleversion{Apr.2022 beta(q)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -670,7 +670,7 @@
    \_printverblinenum \hskip 1em #1 \par
 }
 \_def\_initverblinenum{}
-\_def\_printverblinenum{\_global\_advance\_ttline by1 \_llap
+\_def\_printverblinenum{\_llap
     {\Blue \.sevenss \_the\_ttline\_kern.9em}}
 
 %%% Blue centered tables
@@ -945,3 +945,4 @@ beta(m) Aug.2021  \_clabeltext -> \.clabeltext, bug fixed
 beta(n) Jan.2022  colors in slide-titles corrected, \.nochap defined by \eoldef
 beta(o) Feb.2022  \.bigdotfont for slides in OTF variant
 beta(p) Mar.2022  colors of the slider in slides corrected, bug fix.
+beta(q) Apr.2022  \ttline>0 bug fixed.
