@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Apr.2022 beta(q)}
+\_def\ctustyleversion{May.2022 beta(r)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -561,7 +561,7 @@
 \_def\onesideprinting{\_def\.printheadline{\.ssi\_thefontsize[10]
      \Grey\_ea\.ignoretospace\.headchap\ \.tecky
      \_if&\_firstmark&\_else\ \_fi\Grey\_firstmark\Black}
-   \_def\nextoddpage{\vfil\supereject}\shiftoffset=0pt 
+   \_def\nextoddpage{\_vfil\_supereject}\_shiftoffset=0pt
    \_let\.printpagetwo=\.onesidepagetwo
 }
 \_def\.ignoretospace#1\ {}
@@ -946,3 +946,4 @@ beta(n) Jan.2022  colors in slide-titles corrected, \.nochap defined by \eoldef
 beta(o) Feb.2022  \.bigdotfont for slides in OTF variant
 beta(p) Mar.2022  colors of the slider in slides corrected, bug fix.
 beta(q) Apr.2022  \ttline>0 bug fixed.
+beta(r) May.2022  \shiftoffset missing: bug fixed.
