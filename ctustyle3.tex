@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{May.2022 beta(r)}
+\_def\ctustyleversion{Aug.2022 beta(s)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -118,6 +118,7 @@
 \.mtdef {bibliography} {References}        {Literatura}     {Literatúra}
 \.mtdef {appendix}     {Appendix}          {Příloha}        {Príloha}     
 \.mtdef {specifi}      {Specification}     {Zadání}         {Zadanie}
+\.mtdef {logoctu}      {logo_cvut_en}      {logo_CVUT}      {logo_CVUT}
 
 \.mtdef {B} {Bachelor's Thesis} {Bakalářská práce}  {Bakalárska práca}
 \.mtdef {M} {Master's Thesis}   {Diplomová práce}   {Diplomová práca}
@@ -270,15 +271,11 @@
    \_insertoutline{\_mtext{title}}
    \_line{\Blue \_vrule height 230mm width 4mm \Black \_hss 
       \_vbox to230mm{\_advance\_hsize by-8mm \_parindent=0pt
-         \_picwidth=3cm \_picdir={}\.bf
-         \_line{\_inspic{ctulogo-\_ifx\Blue\Grey bw-\_fi new.pdf}\_hss
-            \_vbox{\_advance\_hsize by-34mm
-               \_baselineskip=17pt\.bf\_thefontsize[15] 
-               \Blue \_mtext{ctu}\_par
-            \_kern.5pt}}
+         \_picheight=3cm \_picdir={}\.bf
+         \_inspic{\_mtext{logoctu}.pdf}
          \_vskip8mm
          \_line{\_hbox{\Blue\.bf\_thefontsize[32] \.printfaculty}\_hss
-             \_vbox{\_advance\_hsize by-34mm
+             \_vbox{\_advance\_hsize by-31.5mm
                 \Black \_mtext{\_the\faculty}\_par
                 \_the\department}}
          \_vskip5mm
@@ -889,14 +886,12 @@
 }
 \_def\.logobox{\_vbox to0pt{
   \_hbox{{\Blue\vrule width12pt height46pt}\_kern12pt
-        \_pdfrefximage\.logopic
-        \_ifnum\.titpage=\_the\_pageno\_relax \.uniname \_fi}
+        \_ifnum\.titpage=\_the\_pageno\_relax \.uniname \_else \_pdfrefximage\.logopic \_fi}
   \_ifnum\.titpage=\_the\_pageno\_relax \_kern-1pt{\Blue \_hrule height13.5cm width12pt}\_fi
   \_vss
 }}
 \_def\.uniname{\_kern7pt\_typosize[10/11.3]\_bf
-   \_vbox{\_hsize=90pt\_leftskip=0pt \_rightskip=0pt minus10pt\_def\nl{\_hfil\_break}
-      \_mtext{ctu}\_par\_kern.5pt}%
+   \_picheight=1.62cm \_inspic{\_mtext{logoctu}.pdf}%
    \_if^\_the\faculty^\_else \_kern15pt{\_bf\_thefontsize[35]\Blue\.printfaculty}\_kern7pt
    \_vbox{\_hbox{\_mtext{\_the\faculty}}
          \_if^\_the\department^\_else\_hbox{\_the\department}\_fi}\_fi
@@ -947,3 +942,4 @@ beta(o) Feb.2022  \.bigdotfont for slides in OTF variant
 beta(p) Mar.2022  colors of the slider in slides corrected, bug fix.
 beta(q) Apr.2022  \ttline>0 bug fixed.
 beta(r) May.2022  \shiftoffset missing: bug fixed.
+beta(s) Aug.2022  logoCTU: logotyp added (to comply typo-manual)
