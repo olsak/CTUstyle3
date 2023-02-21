@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Aug.2022 beta(s)}
+\_def\ctustyleversion{Feb.2023 beta(s)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -32,6 +32,9 @@
 \_newtoks\thanks
 \_newtoks\declaration
 \_newtoks\specification
+
+\_def\fnumbering{\_def\.pgnum##11{}}
+\_let\.pgnum=\_empty
 
 %%% Mandatory declaration commands
 
@@ -300,7 +303,7 @@
 }}}
 \_addto\makefront{%
    \_bgroup \_hbadness=4000 
-   \_pageno=-1
+   \.pgnum\_pageno=-1
    \_footline={\_hss\.drafttext} \.titlepage \_vfil\_break
 }
 \_def\.printfaculty{\_edef\.tmpa{\_the\faculty}\_def\.tmpb{MUVS}%
@@ -359,7 +362,8 @@
    \_fi
 }
 \_addto\makefront{%
-   \_footline={\_hss\.ssr\_thefontsize[11]\_romannumeral-\_pageno\_hss\.drafttext}
+   \_footline={\_hss\.ssr\_thefontsize[11]%
+      \_ifx\.pgnum\_empty \_ea\_romannumeral\_ea-\_else \_ea\_the \_fi \_pageno\_hss\.drafttext}
    \.declpage \_vfil\_break
 }
 \_def\signature {\_vskip2cm \_indent\.tocdotfill\_null}
@@ -498,18 +502,18 @@
    \_footline={\_hss\.drafttext}
    \_ifodd\_pageno\_else \_ifx\.printpagetwo\.twosidepagetwo \_null\_vfil\_break \_fi\_fi
    \_pageno=-\_pageno \_advance\_pageno by-1 % page ranges (roman/decimal numeral)
-   \_pdfcatalog{/PageLabels<</Nums[0<</S/r>>\_the\_pageno<</S/D>>]>>}
+   \_ifx\.pgnum\_empty \_pdfcatalog{/PageLabels<</Nums[0<</S/r>>\_the\_pageno<</S/D>>]>>}\_fi
    \_egroup
    \.setlinespacing
    \.trysavetoner
-   \_pageno=1
+   \.pgnum\_pageno=1
    \_footline={\_hss\.ssr\_thefontsize[11]\_the\_pageno\_hss\.drafttext}
    \_outlines{0}\_pdfcatalog{/PageMode /UseOutlines}
 }
 
 %%% Chapter, section
 
-\_def\_printchap#1{\_vfil\_supereject \.myvakat \_vglue1cm
+\_def\_printchap#1{\_vfill\_supereject \.myvakat \_vglue1cm
   \_headline={\_hfil\.nextheadline}
   \_xdef\.headchap{\_ifnonum\_else\_thechapnum.\ \_fi#1}
   \_mark{}\_nobreak
@@ -593,7 +597,7 @@
 \_eoldef\.nochap#1{\_message{CTUstyle WARNING: \_noexpand\chap inside
                              Appendices is ignored.}}
 
-\_def\.printapp#1{\_vfil\_supereject \.myvakat \_vglue1cm
+\_def\.printapp#1{\_vfill\_supereject \.myvakat \_vglue1cm
   \_headline={\_hfil\.nextheadline}
   \_xdef\.headchap{\.appletter\ #1}
   \_mark{}\_nobreak
@@ -943,3 +947,4 @@ beta(p) Mar.2022  colors of the slider in slides corrected, bug fix.
 beta(q) Apr.2022  \ttline>0 bug fixed.
 beta(r) May.2022  \shiftoffset missing: bug fixed.
 beta(s) Aug.2022  logoCTU: logotyp added (to comply typo-manual)
+beta(t) Feb.2023  \fnumbering added
