@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Feb.2023 beta(t)}
+\_def\ctustyleversion{Jul.2023 beta(u)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -667,7 +667,7 @@
 \_let\.printverblineori=\_printverbline
 \_def\_printverbline#1{\penalty \_ttpenalty \noindent 
    \rlap{\vbox to0pt{\vss\liBlue 
-         \hrule width\hsize height10pt depth4pt \kern-4pt}}%
+         \hrule width\dimexpr\hsize-\leftskip height10pt depth4pt \kern-4pt}}%
    \_printverblinenum \hskip 1em #1 \par
 }
 \_def\_initverblinenum{}
@@ -948,3 +948,4 @@ beta(q) Apr.2022  \ttline>0 bug fixed.
 beta(r) May.2022  \shiftoffset missing: bug fixed.
 beta(s) Aug.2022  logoCTU: logotyp added (to comply typo-manual)
 beta(t) Feb.2023  \fnumbering added
+beta(u) Jul.2023  verbatim frames respects \leftskip
