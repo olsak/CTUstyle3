@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Jul.2023 beta(u)}
+\_def\ctustyleversion{Jul.2023 beta(v)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -750,11 +750,13 @@
 
 \_def\.makerfc{\_ifx\rfc\.rfcactive
    \_vfil\_break {\.secfont \_noindent Requests for correction}\_par
-   \_bgroup\.rfcnum=0 \.rfclist\_egroup\_fi}
+   \_bgroup\.rfcnum=0 \.rfclist\_egroup\_fi
+  \_vfil\_break
+}
 
 \_let\_rfcborder=\_tocborder
 
-\_addto\_byehook{\.makerfc}
+\_aheadto\_byehook{\.makerfc}
 
 %%% Items
 
@@ -949,3 +951,4 @@ beta(r) May.2022  \shiftoffset missing: bug fixed.
 beta(s) Aug.2022  logoCTU: logotyp added (to comply typo-manual)
 beta(t) Feb.2023  \fnumbering added
 beta(u) Jul.2023  verbatim frames respects \leftskip
+beta(v) Jul.2023  \draft: bug fix when .ref file is closed but last page is added
