@@ -53,9 +53,9 @@ Další text.
 \endtt
 
 Založte si pracovní adresář a do něj dejte šablonu "ctustyle3.tex" a logo
-ČVUT "ctulogo-new.pdf". Také tam dejte všechny soubory s různými variantami
-fontů Technika s příponami "otf". Konečně tam uložte výše zmíněný
-soubor "minimal.tex" a zpracujte jej \OpTeX/em. To znamená,
+ČVUT "logo_CVUT.pdf" a "logo_cvut_en.pdf". Také tam dejte všechny soubory
+s různými variantami fontů Technika s příponami "otf". Konečně tam uložte
+výše zmíněný soubor "minimal.tex" a zpracujte jej \OpTeX/em. To znamená,
 že na příkazový řádek napíšete:
 
 \begtt
@@ -229,9 +229,9 @@ změně PDF dokumentu a obnovil v~takovém případě zobrazení dokumentu.
 Dokument je rozumné zpracovávat včetně vkládaných obrázků (ve formátu JPG,
 PNG nebo PDF) v~jednom vyhrazeném adresáři. \TeX{} musí být také schopen
 dohledat soubor se šablonou "ctustyle3.tex", soubory pro fonty Technika 
-("Technika-*.otf") a logo
-"ctulogo-new.pdf". To nejjednodušeji zajistíte tak, že tyto soubory budou
-přítomny také v~pracovním adresáři dokumentu. 
+("Technika-*.otf") a loga
+"logo_CVUT.pdf" a "logo_cvut_en.pdf". To nejjednodušeji zajistíte tak,
+že tyto soubory budou přítomny také v~pracovním adresáři dokumentu.
 Není to ale nutné. Můžete je nakopírovat do \TeX{}ové distribuce, tj. uložit
 je na vhodné místo (podle návodu k~\TeX{}ové distribuci) a spustit
 obnovovací příkaz typu "texhash". Pak tyto soubory \TeX{} dokáže dohledat a
@@ -247,10 +247,10 @@ vypadá tato činnost (po stažení ZIP archivu
 z~GITHub\urlnote{https://github.com/olsak/CTUstyle3}) následovně:
 
 \begtt
-unzip CTUstle3-main.zip
+unzip CTUstyle3-main.zip
 cd CTUstyle3-main/
 mkdir -p ~/texmf/tex/ctustyle3/ ~/texmf/fonts/opentype/technika/
-cp ctustyle3.tex ctulogo-*.pdf ~/texmf/tex/ctustyle3/
+cp ctustyle3.tex logo_*.pdf ~/texmf/tex/ctustyle3/
 cp Technika-*.otf ~/texmf/fonts/opentype/technika/
 \endtt
 
