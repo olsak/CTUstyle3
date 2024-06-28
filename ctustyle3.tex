@@ -238,11 +238,12 @@
      \.setminutes
      \_def\.drafttext{\_vbox to0pt{\_vss \_llap{   
      \Grey \.bf\_thefontsize[11] Draft: \_the\_day. \_the\_month.
-     \_the\_year\_enspace (\_the\.hours:\_the\.minutes)\Black}}}}
+     \_the\_year\_enspace (\_the\.hours:\.Othe\.minutes)\Black}}}}
 \_def\.setminutes{%
    \.minutes=\_directlua{tex.sprint(\_the\_time\_pcent 60)}\_relax
    \.hours=\_directlua{tex.sprint(math.floor(\_the\_time/60))}\_relax
 }
+\_def\.Othe#1{\_ifnum#1<10 0\_fi\_the#1}
 
 \_def\linespacing=#1#2 {\_def\.thelinespacing{#1#2}}  
 \linespacing=1
