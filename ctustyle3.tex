@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Jun.2024 beta(w)}
+\_def\ctustyleversion{Jul.2024 beta(x)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -500,6 +500,29 @@
             \_ifx\.tmp\_do \_vfil\_break \.frontpage[/] \_repeat
    \_fi
 }
+\_def\.totfpages{
+   \_setbox\.totbox=\_vbox{\.sethsizefront \_parskip=0pt \_iindent=9mm
+                           \.totlist
+                           \_bigskip {\Blue \_hrule height 3pt}\_bigskip
+                           \.toflist \_vfill}
+   \.prepbox\.totbox
+   \_let\.tmp=\_do
+   \_ifx\.toflist\_empty \_ifx\.totlist\_empty \_let\.tmp=\_relax \_fi\_fi
+   \_ifx\.tmp\_do
+      \_insertoutline{\_ifx\.totlist\_empty \_else \_mtext{tables}\_fi/%
+                      \_ifx\.toflist\_empty \_else \_mtext{figures}\_fi}
+      \_setbox\.leftbox=\_vsplit\.totbox to\.frontht
+      \_setbox\.rightbox=\_vsplit\.totbox to\.frontht
+      \.frontpage[\_ifx\.totlist\_empty \_else\_mtext{tables}\_fi/%
+                  \_ifx\.toflist\_empty \_else\_mtext{figures}\_fi]
+      \_loop \_let\.tmp=\_relax
+            \_ifvoid\.totbox \_else \_setbox\.leftbox=\_vsplit\.totbox to\.frontht
+                                 \_let\.tmp=\_do \_fi
+            \_ifvoid\.totbox \_else \_setbox\.rightbox=\_vsplit\.totbox to\.frontht \_fi
+            \_ifx\.tmp\_do \_vfil\_break \.frontpage[/] \_repeat
+   \_fi
+}
+
 \_addto\makefront{%
    \.tofpages \_vfil\_break
 }
@@ -929,6 +952,7 @@
 \_def\.tryvakat{\_ifodd\_pageno \_else \_shipout\_null \_advancepageno \_fi}
 \_let\.myvakat=\_relax  % by default, chapters 2, 3, ... can start at left pages
 \_def\oddchapters{\_let\.myvakat=\.tryvakat} % all chapters start at right pages
+\_def\totf{\_let\.tofpages=\.totfpages}
 
 \_let\urllink=\_ulink
 
@@ -964,3 +988,4 @@ beta(t) Feb.2023  \fnumbering added
 beta(u) Jul.2023  verbatim frames respects \leftskip
 beta(v) Jul.2023  \draft: bug fix when .ref file is closed but last page is added
 beta(w) Jun.2024  \draft: hours, minutes added
+beta(x) Jul.2024  \totf for comact list of tables+figures added

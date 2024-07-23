@@ -191,6 +191,13 @@ obrázek v~příkazu "\caption". Je to proto, že ty texty se mohou lišit.
 Typicky v~obsahu budou stručnější. Ukázka použití "\clabel" je u~výpisu kódu
 k~tabulce~\ref[absolventiFEL].
 
+Seznam obrázků a tabulek se vytiskne hned za obsahem. Tabulky tam mají
+rezerován levý sloupec a obrázky pravý. Když nemáte například skoro žádné
+tabulky ale máte velké množství obrázků, je na více stránkách v seznamu obsazen
+jen pravý sloupec, což nepůsobí dobře. Můžete použít příkaz "\totf", který
+způsobí obvyklé zaplnění obou sloupců a zařadí seznam obrázů hned za seznam
+tabulek.
+
 \OpTeX/ umožňuje použít automaticky číslované odstavce, viz konec sekce
 1.4.2 v dokumentaci \OpTeX/u. Je připraveno pět
 nezávislých čítačů označených A, B, C, D a E, každý z nich začíná 
@@ -579,13 +586,13 @@ nakonec černobíle, je možná lepší použít tuto variantu dokumentu. Pro
 finálně vygenerované PDF (které není určeno k tisku) ovšem doporučuji 
 vrátit se k barvě.
 
-
 \sec Prezentace pro zpětný projektor
 
 Chcete-li vytvořit prezentaci ve stejném stylu, podívejte se do souboru
 "slides.pdf" a "slides.tex". Soubory slouží jednak jako ukázka,
 jak taková prezentace může vypadat, a také poskytují návod, jak takovou
 prezentaci vytvořit.
+
 
 \label[typo]
 \chap Poznámky k~typografii
