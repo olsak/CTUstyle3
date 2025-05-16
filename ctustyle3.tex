@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{Jul.2024 beta(x)}
+\_def\ctustyleversion{May.2025 beta(y)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -264,7 +264,7 @@
 \_def\.pdfinfodata{%
    \_def\.infolist{}%
    \_def\.addinfo##1##2{\_pdfunidef\.tmpb{##2}\_edef\.infolist{\.infolist ##1\.tmpb}}%
-   \_ifx\_hexprint\_undefined
+   \_isinlist\optexversion{Beta}\_iftrue
       \_def\.addinfo##1##2{\_pdfunidef\.tmpb{##2}\_edef\.infolist{\.infolist ##1(\.tmpb)}}%
    \_fi
    \.addinfo{/Author}{\_the\author}%
@@ -989,3 +989,4 @@ beta(u) Jul.2023  verbatim frames respects \leftskip
 beta(v) Jul.2023  \draft: bug fix when .ref file is closed but last page is added
 beta(w) Jun.2024  \draft: hours, minutes added
 beta(x) Jul.2024  \totf for comact list of tables+figures added
+beta(y) May.2025  test of \hexstring removed: bug in \pdfinfo fixed
