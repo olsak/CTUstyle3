@@ -4,7 +4,7 @@
 
 \useOpTeX % Use OpTeX format
 
-\_def\ctustyleversion{May.2025 beta(y)}
+\_def\ctustyleversion{Oct.2025 beta(z)}
 
 \_message{CTUstyle3: Thesis at Czech Technical University in Prague, 
           <\ctustyleversion>}
@@ -823,7 +823,7 @@
   \_slides
 
   \_hoffset=12mm
-  \_addto\wideformat{\_hoffset=12mm \_advance\_hsize by4mm }
+  \_def\_wideformat{\_margins/1 (263,148) (12,15,10,3)mm }\_public \wideformat ;
   \_everypar={}
   \_pgbackground={\hbox to\_pdfpagewidth{\.logobox\_hss\.counterslide}}
   \_font\.bigdotfont=[lmsans10-bold] at80pt
@@ -898,10 +898,14 @@
      \_xdef\.thispage{\_the\_pageno}\_xdef\.maxlayer{\_cs{_p:\.thispage}}\_fi
   \_immediate\_wref\_sdef{{_p:\_the\_pageno}{\_the\_slidelayer}}%
   \_sxdef{_p:\_the\_pageno}{\_the\_slidelayer}%
-  \_vtop{\_baselineskip=16pt \_null\.slideslist}%
+  \_vtop{\_baselineskip=18pt
+     \_null\.slideslist}%
 }
 \_def\.prepslidepages{\_openref\_def\.slideslist{}%
   \_if?\_lastpage \_else
+     \_ifnum\_lastpage>22
+         \_edef\.coef{\_expr[3]{22/\_lastpage}}
+         \_edef\.slideslist{\_baselineskip=\.coef\_baselineskip}\_fi
      \_tmpnum=0
      \_fornum 1..\_lastpage \_do{%
          \_advance\_tmpnum by0\_cs{_p:##1}\_edef\.tmp{\_the\_tmpnum}%
@@ -914,10 +918,13 @@
   \_hbox{\LightGrey \_ifnum\_pageno=#1 \.printpagenum \Blue \_fi \.pagerectangle{#2}}
 }
 \_def\.printpagenum{%
-  \_raise2.4pt\_llap{\_smallbf\_the\_pageno \_ifnum\_slidelayer=0\.maxlayer\_else+\_fi}%
+  \_raise4pt\_vbox to0pt{\_vss
+      \_llap{\_smallbf\_the\_pageno \_ifnum\_slidelayer=0\.maxlayer\_else+\_fi}\_vss}%
 }
-\_def\.pagerectangle#1{\_kern-4pt\_let\Blue=\_relax \_let\_ilinkcolor=\_relax
-   \_ilink[pg:#1]{\.bigdotfont.}\_kern-2pt
+\_def\.pagerectangle#1{\_kern-2pt
+   \_ifx\.coef\_undefined \_else \_afterfi{\_transformbox{\_pdfscale{\.coef}{\.coef}}}\_fi{%
+   \_let\Blue=\_relax \_let\_ilinkcolor=\_relax
+   \_ilink[pg:#1]{\.bigdotfont.}\_kern-2pt}
 }
 \_def\.endslides{\_vfil\_break \_decr\_pageno \_edef\_lastpage{\_folio}
    \_let\.slideslistA=\.slideslist \.prepslidepages
@@ -990,3 +997,4 @@ beta(v) Jul.2023  \draft: bug fix when .ref file is closed but last page is adde
 beta(w) Jun.2024  \draft: hours, minutes added
 beta(x) Jul.2024  \totf for comact list of tables+figures added
 beta(y) May.2025  test of \hexstring removed: bug in \pdfinfo fixed
+beta(z) Oct.2025  \wideformat corrected, when more pages: pageslider is resized
